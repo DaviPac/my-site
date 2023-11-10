@@ -15,10 +15,7 @@ a {
     text-decoration: none;
 }
 
-.instagram-link {
-    display: inline-block;
+.instagram-link img{
     width: 30px; /* Adjust the width and height according to your icon size */
     height: 30px;
-    background: url('https://images.app.goo.gl/Kvh6YiaassztoMnQ7') no-repeat center center;
-    background-size: cover; /* Ensures the image covers the entire space */
 }
