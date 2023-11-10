@@ -16,5 +16,10 @@ a {
 }
 
 .instagram-link {
-    color: #e44562; /* Custom color for Instagram link */
+    display: inline-block;
+    width: 30px; /* Adjust the width and height according to your icon size */
+    height: 30px;
+    background: url('https://images.app.goo.gl/Kvh6YiaassztoMnQ7') no-repeat center center;
+    background-size: cover; /* Ensures the image covers the entire space */
+    text-indent: -9999px; /* Hides the text */
 }
