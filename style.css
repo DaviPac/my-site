@@ -1,0 +1,20 @@
+body {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.instagram-link {
+    color: #e44562; /* Custom color for Instagram link */
+}
