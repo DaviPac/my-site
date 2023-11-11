@@ -8,21 +8,42 @@
 </head>
 <body>
     <div class="container">
-        <h1>
-            Olá!
-        </h1>
+        <h1>Bem vindo ao meu site!</h1>
     </div>
-    <h1>Bem-vindo ao meu site</h1>
-    <p>Teste</p>
-    <h2>Teste2</h2>
-    <a href="pagina2.html">Ir para a Pagina 2</a>
     <div class="container">
-        <h1>
-            <a class="instagram-link"  href="https://www.instagram.com/davi_pires_aquino/">
-                <img src="Instagram_icon.png" alt="Instagram">
-            </a>
-        </h1>
-        </h1>
+        <div class="about-box" onclick="expand(this)">
+            Sobre mim
+            <div class="about-text">
+                <p>
+                   Aqui vai o seu texto sobre você. Pode adicionar informações como interesses, habilidades, etc. 
+                   Aqui vai o seu texto sobre você. Pode adicionar informações como interesses, habilidades, etc. 
+                </p>
+            </div>
+        </div>
     </div>
+    <div class="container">
+        <div class="projects-box" onclick="expand(this)">
+            Meus projetos
+            <div class="about-text">
+                <a href="pagina2.html">- IA de xadrez em C</a>
+            </div>
+            <div class="about-text">
+                <a href="pagina2.html">- Sistema de armazenamento em árvore binária</a>
+            </div>
+            <div class="about-text">
+                <a href="pagina2.html">- Meu site</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <a class="icon" href="https://www.instagram.com/davi_pires_aquino/" target="_blank">
+            <img src="Instagram_icon.png" alt="Instagram">
+        </a>
+        <a class="icon" href="https://www.linkedin.com/in/davi-pires-224b0829a" target="_blank">
+            <img src="linkedin_icon.png" alt="Linkedin">
+        </a>
+    </div>
+    <script src="script.js"></script>
+
 </body>
 </html>

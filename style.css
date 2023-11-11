@@ -1,21 +1,100 @@
 body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     background-color: #222222;
-    color: #ffffff;
-}
-
-.container {
+    color: #b39607;
+  }
+  
+  .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 5vh;
-}
-
-a {
-    color: #3498db;
+  }
+  
+  .about-box, .projects-box {
+    margin-right: 15px;
+    font-size: 25px;
+    font-weight: bold;
+    border: 2px solid #b39607;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    cursor: pointer;
+    background-color: #151515;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+  }
+  
+  .about-box:hover, .projects-box:hover {
+    transform: scale(1.05);
+  }
+  
+  .about-text {
+    font-weight: lighter;
+    color: #937600;
+    display: none;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .about-box.expand .about-text {
+    display: block;
+  }
+  
+  .projects-box.expand .about-text {
+    display: block;
+  }
+  
+  .about-box.expand, .projects-box.expand {
+    margin-bottom: 29px;
+  }
+  
+  .about-box:not(.expand) {
+    margin-bottom: 163px;
+  }
+  
+  .projects-box:not(.expand) {
+    margin-bottom: 139px;
+  }
+  
+  .icon {
     text-decoration: none;
-}
-
-.instagram-link img{
-    width: 30px; /* Adjust the width and height according to your icon size */
-    height: 30px;
-}
+  }
+  
+  .icon img{
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 40px;
+    height: 40px;
+    transition: width 0.3s ease, height 0.3s ease;
+  }
+  
+  .icon img:hover {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .about-text p {
+    color: #937600;
+    transition: color 0.3s ease, font-size 0.3s ease;
+    font-style: italic;
+    font-size: 17px;
+    text-decoration: none;
+  }
+  
+  .about-text a {
+    color: #937600;
+    transition: color 0.3s ease, font-size 0.3s ease;
+    font-style: italic;
+    font-size: 17px;
+    text-decoration: none;
+  }
+  
+  .about-text a:hover {
+    color: #a08300;
+    transition: color 0.3s ease, font-size 0.3s ease;
+    font-style: italic;
+    font-size: 21px;
+    font-weight: bold;
+    text-decoration: none;
+  }
