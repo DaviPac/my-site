@@ -17,7 +17,7 @@ body {
     font-size: 25px;
     font-weight: bold;
     border: 2px solid #b39607;
-    border-radius: 25% 15%;
+    border-radius: 1rem;
     padding: 20px;
     width: 80%;
     cursor: pointer;
@@ -63,7 +63,7 @@ body {
   
   .insta-icon img{
     position: fixed;
-    top: 28rem;
+    top: 30rem;
     right: 54%;
     margin-right: 10px;
     margin-top: 10px;
@@ -74,7 +74,7 @@ body {
 
   .link-icon img{
     position: fixed;
-    top: 28rem;
+    top: 30rem;
     right: 46%;
     margin-right: 10px;
     margin-top: 10px;
@@ -96,7 +96,7 @@ body {
     text-decoration: none;
   }
   
-  .about-text a {
+  .projects-box a {
     color: #937600;
     transition: color 0.3s ease, font-size 0.3s ease;
     font-style: italic;
@@ -104,7 +104,7 @@ body {
     text-decoration: none;
   }
   
-  .about-text a:hover {
+  .projects-box a:hover {
     color: #a08300;
     transition: color 0.3s ease, font-size 0.3s ease;
     font-style: italic;
