@@ -13,8 +13,6 @@ body {
   }
   
   .about-box, .projects-box {
-    display: flex;
-    justify-content: center;
     margin-right: 0.93rem;
     font-size: 1.55rem;
     font-weight: bold;
