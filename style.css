@@ -17,9 +17,9 @@ body {
     font-size: 25px;
     font-weight: bold;
     border: 2px solid #b39607;
-    border-radius: 20% 10%;
+    border-radius: 25% 15%;
     padding: 20px;
-    width: 300px;
+    width: 80%;
     cursor: pointer;
     background-color: #151515;
     transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, border-radius 0.3s ease;
@@ -50,34 +50,48 @@ body {
   }
   
   .about-box:not(.expand) {
-    margin-bottom: 163px;
+    margin-bottom: 103px;
   }
   
   .projects-box:not(.expand) {
-    margin-bottom: 139px;
+    margin-bottom: 119px;
   }
   
-  .icon {
+  .insta-icon, .link-icon {
     text-decoration: none;
   }
   
-  .icon img{
+  .insta-icon img{
+    position: fixed;
+    top: 28rem;
+    right: 54%;
     margin-right: 10px;
     margin-top: 10px;
     width: 40px;
     height: 40px;
-    transition: width 0.3s ease, height 0.3s ease;
+    transition: width 0.3s ease, height 0.3s ease, translate 0.3s ease, filter 0.3s ease;
+  }
+
+  .link-icon img{
+    position: fixed;
+    top: 28rem;
+    right: 46%;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 40px;
+    height: 40px;
+    transition: width 0.3s ease, height 0.3s ease, translate 0.3s ease, filter 0.3s ease;
   }
   
-  .icon img:hover {
+  .insta-icon img:hover, .link-icon img:hover {
+    translate: 0.5rem -0.5rem;
     width: 60px;
     height: 60px;
   }
   
-  .about-text p {
+  .about-text h3 {
     color: #937600;
     transition: color 0.3s ease, font-size 0.3s ease;
-    font-style: italic;
     font-size: 17px;
     text-decoration: none;
   }
@@ -98,7 +112,7 @@ body {
     font-weight: bold;
     text-decoration: none;
   }
-
+  
 * {
     -webkit-tap-highlight-color: transparent;
 }
