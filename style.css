@@ -13,25 +13,17 @@ body {
   }
   
   .about-box, .projects-box {
-    display: flex;
-    position: fixed;
+    margin-right: 0.93rem;
     font-size: 1.55rem;
     font-weight: bold;
     border: 0.12rem solid #b39607;
     border-radius: 1rem;
+    padding: 1.24rem;
     width: 80%;
     cursor: pointer;
     background-color: #151515;
     transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, border-radius 0.3s ease;
   }
-
-.about-box {
-    top: 5rem;
-}
-
-.projects-box {
-    top: 13rem;
-}
   
   .about-box:hover, .projects-box:hover {
     transform: scale(1.05);
