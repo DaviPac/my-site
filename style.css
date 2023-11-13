@@ -13,6 +13,7 @@ body {
   }
   
   .about-box, .projects-box {
+    display: flex;
     position: fixed;
     font-size: 1.55rem;
     font-weight: bold;
