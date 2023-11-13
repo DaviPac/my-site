@@ -26,11 +26,11 @@ body {
   }
 
 .about-box {
-    top: 80%;
+    top: 1rem;
 }
 
 .projects-box {
-    top: 60%;
+    top: 3rem;
 }
   
   .about-box:hover, .projects-box:hover {
