@@ -13,6 +13,7 @@ body {
   }
   
   .about-box, .projects-box {
+    position: fixed;
     margin-right: 0.93rem;
     font-size: 1.55rem;
     font-weight: bold;
@@ -24,9 +25,13 @@ body {
     background-color: #151515;
     transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, border-radius 0.3s ease;
   }
+  
+.about-box {
+  top: 5rem;
+}
 
-.about-box .details ul {
-    list-style-type: none;
+.projects-box {
+  top: 16rem;
 }
 
   .about-box:hover, .projects-box:hover {
@@ -103,7 +108,7 @@ h3 {
     height: 3.73rem;
   }
   
-  .about-text h3 {
+  .about-box h3 {
     color: #937600;
     transition: color 0.3s ease, font-size 0.3s ease;
     font-size: 1.06rem;
