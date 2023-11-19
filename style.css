@@ -31,7 +31,10 @@ top: 5rem;
 }
 
 .projects-box {
-top: 16rem;
+  top: calc(16rem);
+  @media (max-width: 600px) {
+    top: calc(18rem);
+}
 }
 
 .about-box:hover, .projects-box:hover {
@@ -77,10 +80,13 @@ h2 {
   text-decoration: none;
 }
 
+.insta-icon img, .link-icon img {
+  top: 32rem;
+}
+
 .insta-icon img{
   position: fixed;
   filter: brightness(120%) saturate(120%);
-  top: 32rem;
   right: 56%;
   margin-right: 0.62rem;
   margin-top: 0.62rem;
@@ -92,7 +98,6 @@ h2 {
 .link-icon img{
   position: fixed;
   filter: brightness(80%) saturate(180%);
-  top: 32rem;
   right: 44%;
   margin-right: 0.62rem;
   margin-top: 0.62rem;
@@ -129,6 +134,9 @@ h2 {
   font-size: 1.3rem;
   font-weight: bold;
   text-decoration: none;
+  @media (max-width: 600px) {
+    font-size: 1.154rem;
+  }
 }
 
 * {
