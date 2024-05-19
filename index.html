@@ -4,27 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Perguntas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Teste de personalidade MBTI</h1>
@@ -32,40 +12,10 @@
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
 
-        <label for="cor">Cor favorita:</label>
-        <input type="text" id="cor" name="cor" required>
+        <label for="idade">Idade:</label>
+        <input type="text" id="idade" name="idade" required>
 
-        <label for="question1">Vc eh introvertido(a) ou extrovertido(a):</label>
-        <textarea id="question1" name="question1" required></textarea>
-
-        <label for="anel">Qual a numeração/tamanho do seu dedo anelar da mão direita:</label>
-        <textarea id="anel" name="anel" required></textarea>
-
-        <button type="button" onclick="sendEmail()">Enviar</button>
+        <a href="davipac.github.io/my-site/1">Iniciar teste</a>
     </form>
-
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <script>
-        function sendEmail() {
-
-            var name = document.getElementById("name").value;
-            var email = document.getElementById("email").value;
-            var question1 = document.getElementById("question1").value;
-            var question2 = document.getElementById("question2").value;
-            var resposta = document.getElementById("anel").value
-            const sender_email = "davipadecarvalho@homail.com";
-
-            Email.send({
-                SecureToken : "5774634C5E76ADC3939143E29FA682F9BD5E",
-                To : 'davipadecarvalho@hotmail.com',
-                From : "davipadecarvalho@hotmail.com",
-                Subject : "This is the subject",
-                Body : "And this is the body"
-            }).then(
-            message => alert(message)
-            );            
-
-        }
-    </script>
 </body>
 </html>

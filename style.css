@@ -1,165 +1,19 @@
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #222222;
-  color: #b39607;
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
 }
-
-.xadrez {
-  position: fixed;
-  display: flex;
-  top:70%;
-  left: 43.9%;
-}
-
-.xadrez a {
-  color: #937600;
-  font-size: 1.3rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.xadrez a:hover {
-  color: #937600;
-  font-size: 2rem;
-  text-decoration: underline;
-  transform: translate(-0.8rem, -0.5rem);
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.about-box, .projects-box {
-  position: fixed;
-  margin-right: 0.93rem;
-  font-size: 1.55rem;
-  font-weight: bold;
-  border: 0.12rem solid #b39607;
-  border-radius: 1rem;
-  padding: 1.24rem;
-  width: 80%;
-  cursor: pointer;
-  background-color: #151515;
-  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out, border-radius 0.3s ease;
-}
-
-.about-box {
-top: 5rem;
-}
-
-.projects-box {
-  top: calc(16rem);
-  @media (max-width: 600px) {
-    top: calc(18rem);
-}
-}
-
-.about-box:hover, .projects-box:hover {
-  transform: scale(1.05);
-}
-
-.about-text {
-  font-weight: lighter;
-  color: #937600;
-  display: none;
-  margin-top: 0.6rem;
-  font-size: 0.87rem;
-}
-
-h2 {
-  font-weight: lighter;
-  color: #937600;
-  margin-top: 0.6rem;
-  font-size: 1.2rem;
-}
-
-.about-box.expand .about-text {
+label {
   display: block;
+  margin-top: 10px;
 }
-
-.projects-box.expand .about-text {
-  display: block;
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
 }
-
-.about-box.expand, .projects-box.expand {
-  margin-bottom: 1.8rem;
-}
-
-.about-box:not(.expand) {
-  margin-bottom: 6.4rem;
-}
-
-.projects-box:not(.expand) {
-  margin-bottom: 7.4rem;
-}
-
-.insta-icon, .link-icon {
-  text-decoration: none;
-}
-
-.insta-icon img, .link-icon img {
-  top: 32rem;
-}
-
-.insta-icon img{
-  position: fixed;
-  filter: brightness(120%) saturate(120%);
-  right: 56%;
-  margin-right: 0.62rem;
-  margin-top: 0.62rem;
-  width: 2.48rem;
-  height: 2.48rem;
-  transition: width 0.3s ease, height 0.3s ease, translate 0.3s ease, filter 0.3s ease;
-}
-
-.link-icon img{
-  position: fixed;
-  filter: brightness(80%) saturate(180%);
-  right: 44%;
-  margin-right: 0.62rem;
-  margin-top: 0.62rem;
-  width: 2.48rem;
-  height: 2.48rem;
-  transition: width 0.3s ease, height 0.3s ease, translate 0.3s ease, filter 0.3s ease;
-}
-
-.insta-icon img:hover, .link-icon img:hover {
-  translate: 0.5rem -0.5rem;
-  width: 3.73rem;
-  height: 3.73rem;
-}
-
-.about-box h3 {
-  color: #937600;
-  transition: color 0.3s ease, font-size 0.3s ease;
-  font-size: 1.06rem;
-  text-decoration: none;
-}
-
-.projects-box a {
-  color: #937600;
-  transition: color 0.3s ease, font-size 0.3s ease;
-  font-style: italic;
-  font-size: 1.06rem;
-  text-decoration: none;
-}
-
-.projects-box a:hover {
-  color: #a08300;
-  transition: color 0.3s ease, font-size 0.3s ease;
-  font-style: italic;
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-decoration: none;
-  @media (max-width: 600px) {
-    font-size: 1.154rem;
-  }
-}
-
-* {
-  -webkit-tap-highlight-color: transparent;
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
 }
