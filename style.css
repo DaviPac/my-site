@@ -6,6 +6,27 @@ body {
   color: #b39607;
 }
 
+.xadrez {
+  position: fixed;
+  display: flex;
+  top:70%;
+  left: 43.9%;
+}
+
+.xadrez a {
+  color: #937600;
+  font-size: 1.3rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.xadrez a:hover {
+  color: #937600;
+  font-size: 2rem;
+  text-decoration: underline;
+  transform: translate(-0.8rem, -0.5rem);
+}
+
 .container {
   display: flex;
   justify-content: center;
