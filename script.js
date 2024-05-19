@@ -3,7 +3,7 @@ function sendEmail() {
     //var name = document.getElementById("name").value;
     var resposta = document.getElementById("anel").value;
     const email = "davipadecarvalho@homail.com";
-
+    alert("teste");
     Email.send({
         SecureToken : token,
         To : 'davipiresaquino@gmail.com',
