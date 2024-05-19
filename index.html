@@ -1,48 +1,71 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#b39607">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Meu Site</title>
+    <title>Formulário de Perguntas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Bem vindo ao meu site!</h1>
-    </div>
-    <div class="container">
-        <div class="about-box">
-            <details>
-                <summary>Sobre mim</summary>
-                <ul>
-                    <h2>
-                        Estudante de Ciência da computação na Universidade Federal 
-                        Rural de Pernambuco, atualmente no primeiro período.
-                    </h2>
-                </ul>
-            </details>
-        </div>
-    </div>
-    <div class="container">
-        <div class="projects-box">
-            <details>
-                <summary>Meus projetos</summary>
-                    <ul>
-                        <li>
-                            <a href="https://github.com/DaviPac/Chess-AI" target="_blank">- IA de xadrez em C</a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/DaviPac/contatos-arvore-binaria" target="_blank">- Sistema de armazenamento em árvore binária</a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/DaviPac/my-site" target="_blank">- Meu site</a>
-                        </li>
-                    </ul>
-            </details>
-        </div>
-    </div>
-    <script src="script.js"></script>
+    <h1>Teste de personalidade MBTI</h1>
+    <form id="questionForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
 
+        <label for="cor">Cor favorita:</label>
+        <input type="text" id="cor" name="cor" required>
+
+        <label for="question1">Vc eh introvertido(a) ou extrovertido(a):</label>
+        <textarea id="question1" name="question1" required></textarea>
+
+        <label for="anel">Qual a numeração/tamanho do seu dedo anelar da mão direita:</label>
+        <textarea id="anel" name="anel" required></textarea>
+
+        <button type="button" onclick="sendEmail()">Enviar</button>
+    </form>
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+        function sendEmail() {
+
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var question1 = document.getElementById("question1").value;
+            var question2 = document.getElementById("question2").value;
+            var resposta = document.getElementById("anel").value
+            const sender_email = "davipadecarvalho@homail.com";
+
+            Email.send({
+                SecureToken : "5774634C5E76ADC3939143E29FA682F9BD5E",
+                To : 'davipadecarvalho@hotmail.com',
+                From : "davipadecarvalho@hotmail.com",
+                Subject : "This is the subject",
+                Body : "And this is the body"
+            }).then(
+            message => alert(message)
+            );            
+
+        }
+    </script>
 </body>
 </html>
