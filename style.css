@@ -1,8 +1,12 @@
 body {
   font-family: Arial, sans-serif;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+  background-color: #306987;
+  color: #e7afab;
+  margin: 10vh;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 label {
   display: block;
@@ -12,8 +16,29 @@ input, textarea {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
+  background-color: #1d3c4d;
 }
 button {
+  background-color: #e7afab;
   margin-top: 20px;
   padding: 10px 20px;
+}
+
+a {
+  color: #e7afab;
+  font-style: italic;
+  font-size: larger;
+  font-weight: 300;
+}
+
+img {
+  width: 30vh;
+  height: 30vh;
+}
+
+div {
+  padding-top: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
