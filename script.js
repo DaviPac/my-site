@@ -13,7 +13,7 @@ function sendEmail() {
     }).then(
         message => {
             setTimeout(function() {
-                if (message == "OsK") {
+                if (message == "OK") {
                     window.location.href = 'result';
                 }
                 else {
