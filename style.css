@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #306987;
-  color: #e7afab;
+  background-color: #171717;
+  color: #805c23;
   margin: 10vh;
   padding: 0;
   justify-content: center;
@@ -12,17 +12,18 @@ label {
   display: block;
   margin-top: 10px;
 }
-input, textarea {
+input, textarea, select {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
-  background-color: #1d3c4d;
-  color:#e7afab
+  background-color: #282828;
+  color:#805c23
 }
 button {
-  background-color: #e7afab;
+  background-color: #282828;
   margin-top: 20px;
   padding: 10px 20px;
+  color: #805c23
 }
 
 a {
