@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Página de Login</title>
     <script>
-        async function login(event) {
+        async function signIn(event) {
             event.preventDefault(); // Previne o comportamento padrão do formulário
 
             const username = document.getElementById('username').value;
@@ -16,7 +16,7 @@
             params.append('password', password);
 
             try {
-                const response = await fetch('http://192.168.1.8:8080/login', {
+                const response = await fetch('http://192.168.1.8:8080/sign-in', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -30,31 +30,37 @@
                     // Salvar o nome de usuário no localStorage para usar na próxima página
                     localStorage.setItem('username', username);
                     // Redirecionar para a página de boas-vindas
-                    window.location.href = 'welcome';
+                    window.location.href = 'index';
+                } else if (text === 'UAE') {
+                    alert('Username já existe. Tente novamente.');
+                } else if (text === 'UTS') {
+                    alert('Username deve ter 4 ou mais caracteres.');
+                } else if (text === 'PTS') {
+                    alert('Password deve ter 4 ou mais caracteres.');
+                } else if (text === 'PMCC') {
+                    alert('A senha deve conter ao menos uma letra maiúscula.');
+                } else if (text === 'PMCS') {
+                    alert('A senha deve conter ao menos um caractere especial.');
                 } else {
-                    alert('Login inválido. Tente novamente.');
+                    alert('erro desconhecido');
                 }
             } catch (error) {
-                console.error('Erro ao fazer login:', error);
-                alert('Erro ao fazer login. Verifique o console para mais detalhes.');
+                console.error('Erro ao fazer sign-in:', error);
+                alert('Erro ao fazer sign-in. Verifique o console para mais detalhes.');
             }
         }
     </script>
 </head>
 <body>
-    <h1>Página de Login</h1>
-    <form onsubmit="login(event)">
+    <h1>Página de Sign-in</h1>
+    <form onsubmit="signIn(event)">
         <label for="username">Nome de Usuário:</label><br>
         <input type="text" id="username" name="username" required><br><br>
 
         <label for="password">Senha:</label><br>
         <input type="password" id="password" name="password" required><br><br>
 
-        <button type="submit">Login</button>
+        <button type="submit">sign in</button>
     </form>
-    <div>
-        <h2>Não possui uma conta?</h2>
-        <a href="sign-in">crie uma agora!</a>
-    </div>
 </body>
 </html>
