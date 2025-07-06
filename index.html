@@ -1,93 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clube de Tênis de Mesa Pingas</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <title>Login</title>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <h1>Pingas</h1>
-            <p>Clube de Tênis de Mesa</p>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active">Início</a></li>
-                <li><a href="campeonatos.html">Campeonatos</a></li>
-                <li><a href="ranking.html">Ranking</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="login.html" class="btn-login">Login</a></li>
-                <li><a href="cadastro.html" class="btn-cadastro">Cadastre-se</a></li>
-            </ul>
-        </nav>
-    </header>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <label>Usuário:</label><br />
+    <input type="text" id="username" /><br /><br />
+    
+    <label>Senha:</label><br />
+    <input type="password" id="password" /><br /><br />
+    
+    <button type="submit">Entrar</button>
+  </form>
 
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h2>Bem-vindo ao Clube de Tênis de Mesa Pingas</h2>
-                <p>Junte-se à nossa comunidade de entusiastas do tênis de mesa!</p>
-                <a href="cadastro.html" class="btn">Torne-se um Membro</a>
-            </div>
-        </section>
+  <p id="resultado"></p>
 
-        <section class="features">
-            <div class="feature-card">
-                <i class="fas fa-trophy"></i>
-                <h3>Campeonatos</h3>
-                <p>Participe de campeonatos organizados regularmente para todos os níveis.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-table-tennis"></i>
-                <h3>Partidas Amistosas</h3>
-                <p>Organize partidas com outros membros e melhore suas habilidades.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-medal"></i>
-                <h3>Ranking</h3>
-                <p>Acompanhe sua posição no ranking do clube e evolua constantemente.</p>
-            </div>
-        </section>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-        <section class="upcoming-events">
-            <h2>Próximos Eventos</h2>
-            <div class="event-list" id="event-list">
-                <!-- Eventos serão carregados via JavaScript -->
-                <p class="loading">Carregando eventos...</p>
-            </div>
-        </section>
-    </main>
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <h2>Pingas</h2>
-                <p>Clube de Tênis de Mesa</p>
-            </div>
-            <div class="footer-links">
-                <h3>Links Rápidos</h3>
-                <ul>
-                    <li><a href="index.html">Início</a></li>
-                    <li><a href="campeonatos.html">Campeonatos</a></li>
-                    <li><a href="ranking.html">Ranking</a></li>
-                    <li><a href="sobre.html">Sobre</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h3>Contato</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Rua do Ping Pong, 123</p>
-                <p><i class="fas fa-phone"></i> (11) 1234-5678</p>
-                <p><i class="fas fa-envelope"></i> contato@pingasclub.com</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 Clube de Tênis de Mesa Pingas. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+      const response = await fetch('https://testesitebackend.fly.dev/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+      });
 
-    <script src="js/main.js"></script>
+      if (response.status === 401) {
+        document.getElementById('resultado').textContent = '❌ Usuário ou senha incorretos.';
+      } else if (response.ok) {
+        const data = await response.json();
+        document.getElementById('resultado').textContent = '✅ Login bem-sucedido!';
+      } else {
+        document.getElementById('resultado').textContent = '⚠️ Erro ao conectar com o servidor.';
+        }
+    });
+  </script>
 </body>
 </html>
