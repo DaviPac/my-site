@@ -14,6 +14,7 @@ fetch('https://testesitebackend.fly.dev/perfil', {
     document.getElementById('msg').textContent = "Bem-vindo, " + data.username;
 })
 .catch(() => {
-    localStorage.removeItem('token');
-    window.location.href = 'login.html';
+    alert("catch non auth");
+    //localStorage.removeItem('token');
+    //window.location.href = 'login.html';
 });
