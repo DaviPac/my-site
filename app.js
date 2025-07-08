@@ -11,7 +11,6 @@ fetch('https://testesitebackend.fly.dev/perfil', {
     return resp.json();
 })
 .catch(() => {
-    alert("catch non auth");
-    //localStorage.removeItem('token');
-    //window.location.href = 'login.html';
+    localStorage.removeItem('token');
+    window.location.href = 'login.html';
 });
