@@ -10,9 +10,6 @@ fetch('https://testesitebackend.fly.dev/perfil', {
     if (!resp.ok) throw new Error("Não autorizado");
     return resp.json();
 })
-.then(data => {
-    document.getElementById('msg').textContent = "Bem-vindo, " + data.username;
-})
 .catch(() => {
     alert("catch non auth");
     //localStorage.removeItem('token');
