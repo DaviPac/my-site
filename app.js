@@ -15,13 +15,23 @@ fetch('https://testesitebackend.fly.dev/perfil', {
     window.location.href = 'login.html';
 });
 
+const repoName = window.location.hostname.includes('github.io')
+    ? '/' + window.location.pathname.split('/')[1]
+    : '';
+
 // Impede o comportamento padrão de recarregar a página ao clicar nos links
 const route = (event) => {
     event = event || window.event;
     event.preventDefault(); // Impede o recarregamento da página
-    // Adiciona a URL ao histórico do navegador
-    window.history.pushState({}, "", event.target.href);
-    handleLocation(); // Carrega o conteúdo da nova rota
+    
+    // Pega o caminho local do link (ex: "/ranking")
+    const path = event.target.getAttribute('href');
+    
+    // Constrói a URL completa para o histórico do navegador (ex: "/my-site/ranking")
+    const url = `${repoName}${path}`;
+    
+    window.history.pushState({}, "", url);
+    handleLocation();
 };
 
 // Mapeia nossas rotas aos arquivos HTML correspondentes
@@ -32,21 +42,21 @@ const routes = {
     "/torneios": "/pages/torneios.html",
 };
 
-const getPath = () => {
-    const base = window.location.pathname.replace(/\/[^\/]*$/, ""); // remove o arquivo no final
-    const relativePath = window.location.pathname.replace(base, "") || "/";
-    return relativePath;
-};
-
 // Função principal que lida com a mudança de rota
 const handleLocation = async () => {
-    const path = getPath(); // Pega o caminho da URL atual (ex: "/ranking")
-    const route = routes[path] || routes[404]; // Encontra o arquivo HTML ou usa o 404
+    // Pega o caminho completo da URL (ex: "/my-site/ranking")
+    const path = window.location.pathname;
     
-    // Busca o conteúdo do arquivo HTML
-    const html = await fetch(route).then((data) => data.text());
+    // Converte o caminho completo para o caminho local, removendo o nome do repo
+    // Se o resultado for uma string vazia (home), usa "/"
+    const localPath = path.replace(repoName, "") || "/";
+
+    // Encontra o arquivo HTML correspondente ao caminho LOCAL
+    const routeFile = routes[localPath] || routes[404];
     
-    // Injeta o HTML no nosso contêiner principal
+    // Busca o arquivo HTML usando o caminho completo (com o nome do repo)
+    const html = await fetch(`${repoName}${routeFile}`).then((data) => data.text());
+    
     document.getElementById("app").innerHTML = html;
 };
 
