@@ -32,9 +32,15 @@ const routes = {
     "/torneios": "/pages/torneios.html",
 };
 
+const getPath = () => {
+    const base = window.location.pathname.replace(/\/[^\/]*$/, ""); // remove o arquivo no final
+    const relativePath = window.location.pathname.replace(base, "") || "/";
+    return relativePath;
+};
+
 // Função principal que lida com a mudança de rota
 const handleLocation = async () => {
-    const path = window.location.pathname; // Pega o caminho da URL atual (ex: "/ranking")
+    const path = getPath(); // Pega o caminho da URL atual (ex: "/ranking")
     const route = routes[path] || routes[404]; // Encontra o arquivo HTML ou usa o 404
     
     // Busca o conteúdo do arquivo HTML
