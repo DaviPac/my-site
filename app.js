@@ -5,19 +5,37 @@ const repoName = window.location.hostname.includes('github.io')
     ? '/' + window.location.pathname.split('/')[1]
     : '';
 
-fetch('https://testesitebackend.fly.dev/perfil', {
-    headers: {
-        'Authorization': 'Bearer ' + token
+async function carregarUsuario() {
+    try {
+        const resp = await fetch('https://testesitebackend.fly.dev/perfil', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+
+        if (!resp.ok) throw new Error("Não autorizado");
+
+        const user = await resp.json();
+
+        if (user.role === "Admin") {
+            const nav = document.querySelector("nav");
+
+            const link = document.createElement("a");
+            link.href = "/users";
+            link.textContent = "Usuários";
+            link.setAttribute("onclick", "route(event)");
+
+            nav.appendChild(link);
+            return user;
+        }
+    } catch {
+        localStorage.removeItem('token');
+        window.location.href = `${repoName}/login`;
+        return null;
     }
-})
-.then(resp => {
-    if (!resp.ok) throw new Error("Não autorizado");
-    return resp.json();
-})
-.catch(() => {
-    localStorage.removeItem('token');
-    window.location.href = `${repoName}/login`;
-});
+}
+
+carregarUsuario();
 
 // Impede o comportamento padrão de recarregar a página ao clicar nos links
 const route = (event) => {
