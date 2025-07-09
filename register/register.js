@@ -13,8 +13,8 @@ document.getElementById('registerForm').addEventListener('submit', async functio
       if (response.status === 401) {
         document.getElementById('resultado').textContent = '❌ Usuário já existe.';
       } else if (response.ok) {
-        const data = await response.json();
         document.getElementById('resultado').textContent = '✅ Registro bem-sucedido!';
+        window.location.href = 'my-site/login';
       } else {
         document.getElementById('resultado').textContent = '⚠️ Erro ao conectar com o servidor.';
         }

@@ -1,6 +1,10 @@
 const token = localStorage.getItem('token');
 if (!token) window.location.href = 'login.html';
 
+const repoName = window.location.hostname.includes('github.io')
+    ? '/' + window.location.pathname.split('/')[1]
+    : '';
+
 fetch('https://testesitebackend.fly.dev/perfil', {
     headers: {
         'Authorization': 'Bearer ' + token
@@ -12,12 +16,8 @@ fetch('https://testesitebackend.fly.dev/perfil', {
 })
 .catch(() => {
     localStorage.removeItem('token');
-    window.location.href = 'login.html';
+    window.location.href = `${repoName}/login`;
 });
-
-const repoName = window.location.hostname.includes('github.io')
-    ? '/' + window.location.pathname.split('/')[1]
-    : '';
 
 // Impede o comportamento padrão de recarregar a página ao clicar nos links
 const route = (event) => {
