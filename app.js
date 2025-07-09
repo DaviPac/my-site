@@ -75,6 +75,12 @@ async function carregarUsuarios() {
                 <button id="promote">Promover a Admin</button>
                 <button id="demote">Remover Admin</button>
                 <button id="delete">Excluir Usuário</button>
+                <input id="newName" placeholder="Novo nome">
+                <button id="changeName">Mudar nome</button>
+                <input id="newPassword" placeholder="Nova senha">
+                <button id="changePassword">Mudar senha</button>
+                <input id="newPoints" placeholder="Novo número de pontos">
+                <button id="changePoints">Mudar pontos</button>
                 <button id="close">Fechar</button>
             `;
 
@@ -122,6 +128,69 @@ async function carregarUsuarios() {
                         location.reload();
                     } else {
                         alert("❌ Erro ao excluir");
+                    }
+                }
+            };
+
+            modal.querySelector("#changeName").onclick = async () => {
+                const newName = modal.querySelector("#newName").value;
+                if (!newName) {
+                    alert("❌ Nome vazio");
+                    return;
+                }
+                if (confirm("Tem certeza que deseja mudar o nome desse usuário?")) {
+                    const res = await fetch(`https://testesitebackend.fly.dev/changeName?username=${user.username}&newUserame=${newName}`, {
+                        method: "POST",
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    if (res.ok) {
+                        alert("🔄 Nome mudado");
+                        modal.remove();
+                        location.reload();
+                    } else {
+                        alert("❌ Erro ao mudar nome");
+                    }
+                }
+            };
+
+            modal.querySelector("#changePassword").onclick = async () => {
+                const newPassword = modal.querySelector("#newPassword").value;
+                if (!newPassword) {
+                    alert("❌ Senha vazia");
+                    return;
+                }
+                if (confirm("Tem certeza que deseja mudar a senha desse usuário?")) {
+                    const res = await fetch(`https://testesitebackend.fly.dev/changePassword?username=${user.username}&newPassword=${newPassword}`, {
+                        method: "POST",
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    if (res.ok) {
+                        alert("🔄 Senha mudada");
+                        modal.remove();
+                        location.reload();
+                    } else {
+                        alert("❌ Erro ao mudar senha");
+                    }
+                }
+            };
+
+            modal.querySelector("#changePoints").onclick = async () => {
+                const newPoints = modal.querySelector("#newPoints").value;
+                if (!newPoints) {
+                    alert("❌ Pontos vazios");
+                    return;
+                }
+                if (confirm("Tem certeza que deseja mudar a pontuação desse usuário?")) {
+                    const res = await fetch(`https://testesitebackend.fly.dev/changePoints?username=${user.username}&points=${newPoints}`, {
+                        method: "POST",
+                        headers: { "Authorization": "Bearer " + token }
+                    });
+                    if (res.ok) {
+                        alert("🔄 Pontuação mudada");
+                        modal.remove();
+                        location.reload();
+                    } else {
+                        alert("❌ Erro ao mudar pontuação");
                     }
                 }
             };
