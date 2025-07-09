@@ -58,6 +58,7 @@ const routes = {
     "/": "/pages/home.html",
     "/ranking": "/pages/ranking.html",
     "/torneios": "/pages/torneios.html",
+    "/users": "/pages/users.html",
 };
 
 // Função principal que lida com a mudança de rota
