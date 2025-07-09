@@ -17,7 +17,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         console.log(raw);
         const data = JSON.parse(raw);
         localStorage.setItem('token', data.token);
-        window.location.href = '/my-site/home';
+        window.location.href = '/my-site/';
     } else {
         document.getElementById('resultado').textContent = '⚠️ Erro ao conectar com o servidor.';
     }
