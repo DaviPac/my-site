@@ -237,7 +237,11 @@ const handleLocation = async () => {
     
     document.getElementById("app").innerHTML = html;
 
-    if (localPath === "/users") {
+    if (localPath === "/ranking") {
+        carregarRanking();
+    }
+
+    else if (localPath === "/users") {
         carregarUsuarios();    
     }
 };
