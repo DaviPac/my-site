@@ -1,3 +1,5 @@
+console.log("ger_users carregado");
+
 (async () => {
     const token = localStorage.getItem("token");
     if (!token) {
