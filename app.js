@@ -79,10 +79,12 @@ const handleLocation = async () => {
     document.getElementById("app").innerHTML = html;
 
     if (localPath === "/users") {
-    const script = document.createElement("script");
-    script.type = "module";
-    script.src = `${repoName}/users.js`;
-    document.body.appendChild(script);
+        const existing = document.querySelector('script[src$="users.js"]');
+        if (existing) existing.remove(); // remove antigo
+        const script = document.createElement("script");
+        script.type = "module";
+        script.src = `${repoName}/users.js`;
+        document.body.appendChild(script);
 }
 };
 
