@@ -16,7 +16,6 @@ async function carregarUsuario() {
         if (!resp.ok) throw new Error("Não autorizado");
 
         const user = await resp.json();
-        alert(user);
 
         if (user.role === "Admin") {
             const nav = document.querySelector("nav");
@@ -36,7 +35,7 @@ async function carregarUsuario() {
     }
 }
 
-carregarUsuario();
+const usuario = await carregarUsuario();
 
 // Impede o comportamento padrão de recarregar a página ao clicar nos links
 const route = (event) => {
