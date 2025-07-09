@@ -139,7 +139,7 @@ async function carregarUsuarios() {
                     return;
                 }
                 if (confirm("Tem certeza que deseja mudar o nome desse usuário?")) {
-                    const res = await fetch(`https://testesitebackend.fly.dev/change-name?username=${user.username}&newUsername=${newName}`, {
+                    const res = await fetch(`https://testesitebackend.fly.dev/change-username?username=${user.username}&newUsername=${newName}`, {
                         method: "POST",
                         headers: { "Authorization": "Bearer " + token }
                     });
