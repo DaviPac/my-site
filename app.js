@@ -77,6 +77,13 @@ const handleLocation = async () => {
     const html = await fetch(`${repoName}${routeFile}`).then((data) => data.text());
     
     document.getElementById("app").innerHTML = html;
+
+    if (localPath === "/users") {
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src = `${repoName}/users.js`;
+    document.body.appendChild(script);
+}
 };
 
 // Lida com os botões de voltar e avançar do navegador
