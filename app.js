@@ -16,6 +16,7 @@ async function carregarUsuario() {
         if (!resp.ok) throw new Error("Não autorizado");
 
         const user = await resp.json();
+        alert(user);
 
         if (user.role === "Admin") {
             const nav = document.querySelector("nav");
