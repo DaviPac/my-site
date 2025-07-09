@@ -139,7 +139,7 @@ async function carregarUsuarios() {
                     return;
                 }
                 if (confirm("Tem certeza que deseja mudar o nome desse usuário?")) {
-                    const res = await fetch(`https://testesitebackend.fly.dev/changeName?username=${user.username}&newUserame=${newName}`, {
+                    const res = await fetch(`https://testesitebackend.fly.dev/change-name?username=${user.username}&newUsername=${newName}`, {
                         method: "POST",
                         headers: { "Authorization": "Bearer " + token }
                     });
@@ -160,7 +160,7 @@ async function carregarUsuarios() {
                     return;
                 }
                 if (confirm("Tem certeza que deseja mudar a senha desse usuário?")) {
-                    const res = await fetch(`https://testesitebackend.fly.dev/changePassword?username=${user.username}&newPassword=${newPassword}`, {
+                    const res = await fetch(`https://testesitebackend.fly.dev/change-password?username=${user.username}&newPassword=${newPassword}`, {
                         method: "POST",
                         headers: { "Authorization": "Bearer " + token }
                     });
@@ -181,7 +181,7 @@ async function carregarUsuarios() {
                     return;
                 }
                 if (confirm("Tem certeza que deseja mudar a pontuação desse usuário?")) {
-                    const res = await fetch(`https://testesitebackend.fly.dev/changePoints?username=${user.username}&points=${newPoints}`, {
+                    const res = await fetch(`https://testesitebackend.fly.dev/set-points?username=${user.username}&points=${newPoints}`, {
                         method: "POST",
                         headers: { "Authorization": "Bearer " + token }
                     });
