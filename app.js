@@ -274,7 +274,7 @@ const route = (event) => {
     const path = event.target.getAttribute('href');
     
     // Constrói a URL completa para o histórico do navegador (ex: "/my-site/ranking")
-    const url = `${repoName}${path}`;
+    const url = `${path}`;
     
     window.history.pushState({}, "", url);
     handleLocation();
