@@ -249,7 +249,7 @@ async function carregarUsuario() {
             const nav = document.querySelector("nav");
 
             const link = document.createElement("a");
-            link.href = "/users";
+            link.href = "/my-site/users";
             link.textContent = "Usuários";
             link.setAttribute("onclick", "route(event)");
 
