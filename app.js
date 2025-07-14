@@ -282,7 +282,7 @@ async function carregarUsuario() {
             const nav = document.querySelector("nav");
 
             const linkAddTorneio = document.createElement("a");
-            linkAddTorneio.href = "/gerTorneio";
+            linkAddTorneio.href = "/gerTorneios";
             linkAddTorneio.textContent = "Gerenciar Torneios";
             linkAddTorneio.setAttribute("onclick", "route(event)");
             nav.appendChild(linkAddTorneio);
