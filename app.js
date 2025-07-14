@@ -333,7 +333,7 @@ async function carregarGerenciarTorneios() {
         torneios.forEach(torneio => {
             const div = document.createElement("div");
             div.className = "torneio";
-            div.textContent = `${torneio.nome} (${torneio.data.toLocaleDateString()} ${torneio.data.toLocaleTimeString()})`;
+            div.textContent = `${torneio.nome} (${torneio.data} ${torneio.data})`;
 
             const manageButton = document.createElement("button");
             manageButton.textContent = "Gerenciar";
