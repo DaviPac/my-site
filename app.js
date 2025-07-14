@@ -440,7 +440,7 @@ async function carregarGerenciarTorneios() {
             modal.querySelector("#delete").onclick = async () => {
                 const torneioId = torneio.id;
                 if (confirm("Excluir torneio?")) {
-                    const res = await fetch(`https://testesitebackend.fly.dev/excluir-torneio?torneioId=${torneioId}`, {
+                    const res = await fetch(`https://testesitebackend.fly.dev/torneio?torneioId=${torneioId}`, {
                         method: "DELETE",
                         headers: { 
                             "Authorization": "Bearer " + token,
@@ -476,11 +476,11 @@ async function carregarGerenciarTorneios() {
                         body: JSON.stringify({ torneioId, nome, data })
                     });
                     if (res.ok) {
-                        alert("✅ Torneio criado");
+                        alert("✅ Torneio atualizado");
                         modal.remove();
                         location.reload();
                     } else {
-                        alert("❌ Erro ao criar torneio");
+                        alert("❌ Erro ao atualizar torneio");
                     }
                 }
             };
