@@ -281,6 +281,12 @@ async function carregarUsuario() {
         if (user.role === "Admin") {
             const nav = document.querySelector("nav");
 
+            const linkAddTorneio = document.createElement("a");
+            linkAddTorneio.href = "/gerTorneio";
+            linkAddTorneio.textContent = "Gerenciar Torneios";
+            linkAddTorneio.setAttribute("onclick", "route(event)");
+            nav.appendChild(linkAddTorneio);
+
             const link = document.createElement("a");
             link.href = "/users";
             link.textContent = "Usuários";
@@ -293,6 +299,107 @@ async function carregarUsuario() {
         localStorage.removeItem('token');
         window.location.href = `${repoName}/login`;
         return null;
+    }
+}
+
+async function gerenciarTorneios() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        const response = await fetch("https://testesitebackend.fly.dev/torneios", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Não autorizado");
+        }
+
+        const torneios = await response.json();
+
+        const torneiosContainer = document.querySelector(".gerTorneios");
+        torneiosContainer.innerHTML = ""; // limpa conteúdo anterior
+        const addTorneioButton = document.createElement("button");
+        addTorneioButton.textContent = "Adicionar Torneio";
+        addTorneioButton.style.marginBottom = "10px";
+        torneiosContainer.appendChild(addTorneioButton);
+
+        torneios.forEach(torneio => {
+            const div = document.createElement("div");
+            div.className = "torneio";
+            div.textContent = `${torneio.nome} (${new Date(torneio.data).toLocaleDateString()})`;
+            const manageButton = document.createElement("button");
+            manageButton.textContent = "Gerenciar";
+            manageButton.style.marginLeft = "10px";
+            //manageButton.addEventListener("click", () => openUserPopup(user.username));
+            div.appendChild(manageButton);
+            torneiosContainer.appendChild(div);
+        });
+    } catch (error) {
+        alert("❌ Você não tem permissão ou ocorreu um erro.");
+        console.error(error);
+        localStorage.removeItem("token");
+        window.location.href = "login.html";
+    }
+    async function openAddTorneioPopup(torneio) {
+        try {
+
+            const modal = document.createElement("div");
+            modal.style.position = "fixed";
+            modal.style.top = "50%";
+            modal.style.left = "50%";
+            modal.style.transform = "translate(-50%, -50%)";
+            modal.style.background = "#fff";
+            modal.style.padding = "20px";
+            modal.style.border = "2px solid #000";
+            modal.style.zIndex = 9999;
+            modal.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)";
+
+            modal.innerHTML = `
+                <input id="nome" placeholder="Nome">
+                <input id="data" placeholder="Data">
+                <input id="type" placeholder="Tipo (single ou double)">
+                <button id="add">Adicionar</button>
+                <button id="close">Fechar</button>
+            `;
+
+            document.body.appendChild(modal);
+
+            modal.querySelector("#close").onclick = () => modal.remove();
+
+            modal.querySelector("#add").onclick = async () => {
+                const nome = modal.querySelector("#nome").value;
+                const data = modal.querySelector("#data").value;
+                const type = modal.querySelector("#type").value;
+                if (!nome || !data || !type) {
+                    alert("❌ Dados vazios");
+                    return;
+                }
+                if (confirm("Tem certeza que deseja mudar o nome desse usuário?")) {
+                    const res = await fetch(`https://testesitebackend.fly.dev/criar-torneio`, {
+                        method: "POST",
+                        headers: { "Authorization": "Bearer " + token },
+                        body: JSON.stringify({ nome, data, type })
+                    });
+                    if (res.ok) {
+                        alert("✅ Torneio criado");
+                        modal.remove();
+                        location.reload();
+                    } else {
+                        alert("❌ Erro ao criar torneio");
+                    }
+                }
+            };
+
+        } catch (err) {
+            alert("❌ Falha ao carregar página de adição de torneio.");
+            console.error(err);
+        }
     }
 }
 
