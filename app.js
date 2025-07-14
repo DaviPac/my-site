@@ -342,7 +342,10 @@ async function carregarGerenciarTorneios() {
             const div = document.createElement("div");
             div.className = "torneio";
             const dataTorneio = parseTorneioData(torneio.data);
+            console.log(torneio.data);
             div.textContent = `${torneio.nome} (${dataTorneio.toLocaleDateString()} ${dataTorneio.toLocaleTimeString()})`;
+            console.log(dataTorneio);
+
             const manageButton = document.createElement("button");
             manageButton.textContent = "Gerenciar";
             manageButton.style.marginLeft = "10px";
@@ -446,7 +449,6 @@ async function carregarGerenciarTorneios() {
                 const torneioId = torneio.id;
                 if (confirm("Excluir torneio?")) {
                     const res = await fetch(`https://testesitebackend.fly.dev/excluir-torneio?torneioId=${torneioId}`, {
-
                         method: "DELETE",
                         headers: { 
                             "Authorization": "Bearer " + token,
