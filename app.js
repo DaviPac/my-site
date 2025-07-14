@@ -252,7 +252,7 @@ async function carregarTorneios() {
 
         const torneios = await response.json();
         const torneiosContainer = document.querySelector(".torneios");
-        rankingContainer.innerHTML = ""; // limpa conteúdo anterior
+        torneiosContainer.innerHTML = ""; // limpa conteúdo anterior
         torneios.forEach(torneio => {
             const div = document.createElement("div");
             div.className = "torneio";
@@ -347,7 +347,7 @@ async function carregarGerenciarTorneios() {
         localStorage.removeItem("token");
         window.location.href = "login.html";
     }
-    async function openAddTorneioPopup(torneio) {
+    async function openAddTorneioPopup() {
         try {
 
             const modal = document.createElement("div");
