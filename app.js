@@ -5,6 +5,13 @@ const repoName = window.location.hostname.includes('github.io')
     ? '/' + window.location.pathname.split('/')[1]
     : '';
 
+function parseTorneioData(dataStr) {
+    const [dia, mes, anoHora] = dataStr.split('/');
+    const [ano, horaMin] = anoHora.split(' ');
+    const [hora, min] = horaMin.split(':');
+    return new Date(ano, mes - 1, dia, hora, min);
+}
+
 async function carregarUsuarios() {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -256,7 +263,8 @@ async function carregarTorneios() {
         torneios.forEach(torneio => {
             const div = document.createElement("div");
             div.className = "torneio";
-            div.textContent = `${torneio.nome} (${new Date(torneio.data).toLocaleDateString()})`;
+            const dataTorneio = parseTorneioData(torneio.data);
+            div.textContent = `${torneio.nome} (${dataTorneio.toLocaleDateString()} ${dataTorneio.toLocaleTimeString()})`;
             torneiosContainer.appendChild(div);
         });
 
@@ -333,11 +341,12 @@ async function carregarGerenciarTorneios() {
         torneios.forEach(torneio => {
             const div = document.createElement("div");
             div.className = "torneio";
-            div.textContent = `${torneio.nome} (${new Date(torneio.data).toLocaleDateString()})`;
+            const dataTorneio = parseTorneioData(torneio.data);
+            div.textContent = `${torneio.nome} (${dataTorneio.toLocaleDateString()} ${dataTorneio.toLocaleTimeString()})`;
             const manageButton = document.createElement("button");
             manageButton.textContent = "Gerenciar";
             manageButton.style.marginLeft = "10px";
-            //manageButton.addEventListener("click", () => openUserPopup(user.username));
+            manageButton.addEventListener("click", () => openTorneioPopup(torneio));
             div.appendChild(manageButton);
             torneiosContainer.appendChild(div);
         });
@@ -381,7 +390,7 @@ async function carregarGerenciarTorneios() {
                     alert("❌ Dados vazios");
                     return;
                 }
-                if (confirm("Tem certeza que deseja mudar o nome desse usuário?")) {
+                if (confirm("Adicionar torneio?")) {
                     const res = await fetch(`https://testesitebackend.fly.dev/criar-torneio`, {
                         method: "POST",
                         headers: { 
@@ -389,6 +398,88 @@ async function carregarGerenciarTorneios() {
                             "Content-Type": "application/json"
                          },
                         body: JSON.stringify({ nome, data, type })
+                    });
+                    if (res.ok) {
+                        alert("✅ Torneio criado");
+                        modal.remove();
+                        location.reload();
+                    } else {
+                        alert("❌ Erro ao criar torneio");
+                    }
+                }
+            };
+
+        } catch (err) {
+            alert("❌ Falha ao carregar página de adição de torneio.");
+            console.error(err);
+        }
+    }
+
+    async function openTorneioPopup(torneio) {
+
+        try {
+
+            const modal = document.createElement("div");
+            modal.style.position = "fixed";
+            modal.style.top = "50%";
+            modal.style.left = "50%";
+            modal.style.transform = "translate(-50%, -50%)";
+            modal.style.background = "#fff";
+            modal.style.padding = "20px";
+            modal.style.border = "2px solid #000";
+            modal.style.zIndex = 9999;
+            modal.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)";
+
+            modal.innerHTML = `
+                <input id="nome" value="${torneio.nome}">
+                <input id="data" value="${torneio.data.toLocaleDateString()} ${torneio.data.toLocaleTimeString()}">
+                <button id="save">Salvar</button>
+                <button id="close">Fechar</button>
+                <button id="delete">Excluir</button>
+            `;
+
+            document.body.appendChild(modal);
+
+            modal.querySelector("#close").onclick = () => modal.remove();
+
+            modal.querySelector("#delete").onclick = async () => {
+                const torneioId = torneio.id;
+                if (confirm("Excluir torneio?")) {
+                    const res = await fetch(`https://testesitebackend.fly.dev/excluir-torneio?torneioId=${torneioId}`, {
+
+                        method: "DELETE",
+                        headers: { 
+                            "Authorization": "Bearer " + token,
+                            "Content-Type": "application/json"
+                         }
+                    });
+                    if (res.ok) {
+                        alert("✅ Torneio excluído");
+                        modal.remove();
+                        location.reload();
+                    } else {
+                        alert("❌ Erro ao excluir torneio");
+                    }
+                }
+            };
+
+
+            modal.querySelector("#save").onclick = async () => {
+                const nome = modal.querySelector("#nome").value;
+                const data = modal.querySelector("#data").value;
+                const torneioId = torneio.id;
+                if (!nome || !data) {
+                    alert("❌ Dados vazios");
+                    return;
+                }
+                if (confirm("Salvar alterações?")) {
+                    const res = await fetch(`https://testesitebackend.fly.dev/mudar-torneio`, {
+                        method: "POST",
+                        headers: { 
+                            "Authorization": "Bearer " + token,
+                            "Content-Type": "application/json"
+                         },
+                        body: JSON.stringify({ torneioId, nome, data })
                     });
                     if (res.ok) {
                         alert("✅ Torneio criado");
