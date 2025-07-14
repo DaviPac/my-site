@@ -256,7 +256,8 @@ async function carregarTorneios() {
         torneios.forEach(torneio => {
             const div = document.createElement("div");
             div.className = "torneio";
-            div.textContent = `${torneio.nome} (${torneio.data.toLocaleDateString()} ${torneio.data.toLocaleTimeString()})`;
+            const torneioData = new Date(torneio.data);
+            div.textContent = `${torneio.nome} (${torneioData.toLocaleDateString()} ${torneioData.toLocaleTimeString()})`;
             torneiosContainer.appendChild(div);
         });
 
@@ -333,7 +334,8 @@ async function carregarGerenciarTorneios() {
         torneios.forEach(torneio => {
             const div = document.createElement("div");
             div.className = "torneio";
-            div.textContent = `${torneio.nome} (${torneio.data} ${torneio.data})`;
+            const torneioData = new Date(torneio.data);
+            div.textContent = `${torneio.nome} (${torneioData.toLocaleDateString()} ${torneioData.toLocaleTimeString()})`;
 
             const manageButton = document.createElement("button");
             manageButton.textContent = "Gerenciar";
@@ -410,7 +412,7 @@ async function carregarGerenciarTorneios() {
     async function openTorneioPopup(torneio) {
 
         try {
-
+            const torneioData = new Date(torneio.data);
             const modal = document.createElement("div");
             modal.style.position = "fixed";
             modal.style.top = "50%";
@@ -424,7 +426,8 @@ async function carregarGerenciarTorneios() {
 
             modal.innerHTML = `
                 <input id="nome" value="${torneio.nome}">
-                <input id="data" value="${torneio.data.toLocaleDateString()} ${torneio.data.toLocaleTimeString()}">
+                <input id="data" value="${torneioData.toLocaleDateString()} ${torneioData.toLocaleTimeString()}">
+
                 <button id="save">Salvar</button>
                 <button id="close">Fechar</button>
                 <button id="delete">Excluir</button>
