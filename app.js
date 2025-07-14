@@ -384,7 +384,10 @@ async function carregarGerenciarTorneios() {
                 if (confirm("Tem certeza que deseja mudar o nome desse usuário?")) {
                     const res = await fetch(`https://testesitebackend.fly.dev/criar-torneio`, {
                         method: "POST",
-                        headers: { "Authorization": "Bearer " + token },
+                        headers: { 
+                            "Authorization": "Bearer " + token,
+                            "Content-Type": "application/json"
+                         },
                         body: JSON.stringify({ nome, data, type })
                     });
                     if (res.ok) {
