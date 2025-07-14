@@ -302,7 +302,7 @@ async function carregarUsuario() {
     }
 }
 
-async function gerenciarTorneios() {
+async function carregarGerenciarTorneios() {
     const token = localStorage.getItem("token");
     if (!token) {
         window.location.href = "login.html";
@@ -327,6 +327,7 @@ async function gerenciarTorneios() {
         const addTorneioButton = document.createElement("button");
         addTorneioButton.textContent = "Adicionar Torneio";
         addTorneioButton.style.marginBottom = "10px";
+        addTorneioButton.addEventListener("click", () => openAddTorneioPopup());
         torneiosContainer.appendChild(addTorneioButton);
 
         torneios.forEach(torneio => {
@@ -427,6 +428,7 @@ const routes = {
     "/ranking": "/pages/ranking.html",
     "/torneios": "/pages/torneios.html",
     "/users": "/pages/users.html",
+    "/gerTorneios": "/pages/gerTorneios.html"
 };
 
 // Função principal que lida com a mudança de rota
@@ -452,6 +454,12 @@ const handleLocation = async () => {
 
     else if (localPath === "/users") {
         carregarUsuarios();    
+    }
+    else if (localPath === "/torneios") {
+        carregarTorneios();
+    }
+    else if (localPath === "/gerTorneios") {
+        carregarGerenciarTorneios();
     }
 };
 
