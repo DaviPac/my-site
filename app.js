@@ -89,7 +89,7 @@ async function carregarUsuarios() {
             modal.querySelector("#close").onclick = () => modal.remove();
 
             modal.querySelector("#promote").onclick = async () => {
-                const res = await fetch(`https://testesitebackend.fly.dev/promote?username=${user.username}`, {
+                const res = await fetch(`https://testesitebackend.fly.dev/promote?username=${encodeURIComponent(user.username)}`, {
                     method: "POST",
                     headers: { "Authorization": "Bearer " + token }
                 });
@@ -103,7 +103,7 @@ async function carregarUsuarios() {
             };
 
             modal.querySelector("#demote").onclick = async () => {
-                const res = await fetch(`https://testesitebackend.fly.dev/demote?username=${user.username}`, {
+                const res = await fetch(`https://testesitebackend.fly.dev/demote?username=${encodeURIComponent(user.username)}`, {
                     method: "POST",
                     headers: { "Authorization": "Bearer " + token }
                 });
@@ -118,7 +118,8 @@ async function carregarUsuarios() {
 
             modal.querySelector("#delete").onclick = async () => {
                 if (confirm("Tem certeza que deseja excluir esse usuário?")) {
-                    const res = await fetch(`https://testesitebackend.fly.dev/user?username=${user.username}`, {
+                    const res = await fetch(`https://testesitebackend.fly.dev/user?username=${encodeURIComponent(user.username)}`, {
+
                         method: "DELETE",
                         headers: { "Authorization": "Bearer " + token }
                     });
@@ -139,7 +140,7 @@ async function carregarUsuarios() {
                     return;
                 }
                 if (confirm("Tem certeza que deseja mudar o nome desse usuário?")) {
-                    const res = await fetch(`https://testesitebackend.fly.dev/change-username?username=${user.username}&newUsername=${newName}`, {
+                    const res = await fetch(`https://testesitebackend.fly.dev/change-username?username=${encodeURIComponent(user.username)}&newUsername=${encodeURIComponent(newName)}`, {
                         method: "POST",
                         headers: { "Authorization": "Bearer " + token }
                     });
@@ -160,7 +161,7 @@ async function carregarUsuarios() {
                     return;
                 }
                 if (confirm("Tem certeza que deseja mudar a senha desse usuário?")) {
-                    const res = await fetch(`https://testesitebackend.fly.dev/change-password?username=${user.username}&newPassword=${newPassword}`, {
+                    const res = await fetch(`https://testesitebackend.fly.dev/change-password?username=${encodeURIComponent(user.username)}&newPassword=${encodeURIComponent(newPassword)}`, {
                         method: "POST",
                         headers: { "Authorization": "Bearer " + token }
                     });
@@ -181,7 +182,8 @@ async function carregarUsuarios() {
                     return;
                 }
                 if (confirm("Tem certeza que deseja mudar a pontuação desse usuário?")) {
-                    const res = await fetch(`https://testesitebackend.fly.dev/set-points?username=${user.username}&points=${newPoints}`, {
+                    const res = await fetch(`https://testesitebackend.fly.dev/set-points?username=${encodeURIComponent(user.username)}&points=${newPoints}`, {
+
                         method: "POST",
                         headers: { "Authorization": "Bearer " + token }
                     });
@@ -229,6 +231,37 @@ async function carregarRanking() {
 
     } catch (err) {
         alert("❌ Falha ao carregar ranking.");
+        console.error(err);
+    }
+}
+
+async function carregarTorneios() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "login.html";
+        return;
+    }
+    try {
+        const response = await fetch("https://testesitebackend.fly.dev/torneios", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if (!response.ok) throw new Error("Não autorizado");
+
+        const torneios = await response.json();
+        const torneiosContainer = document.querySelector(".torneios");
+        rankingContainer.innerHTML = ""; // limpa conteúdo anterior
+        torneios.forEach(torneio => {
+            const div = document.createElement("div");
+            div.className = "torneio";
+            div.textContent = `${torneio.nome} (${new Date(torneio.data).toLocaleDateString()})`;
+            torneiosContainer.appendChild(div);
+        });
+
+    } catch (err) {
+        alert("❌ Falha ao carregar torneios.");
         console.error(err);
     }
 }
