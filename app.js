@@ -5,13 +5,6 @@ const repoName = window.location.hostname.includes('github.io')
     ? '/' + window.location.pathname.split('/')[1]
     : '';
 
-function parseTorneioData(dataStr) {
-    const [dia, mes, anoHora] = dataStr.split('/');
-    const [ano, horaMin] = anoHora.split(' ');
-    const [hora, min] = horaMin.split(':');
-    return new Date(ano, mes - 1, dia, hora, min);
-}
-
 async function carregarUsuarios() {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -263,8 +256,7 @@ async function carregarTorneios() {
         torneios.forEach(torneio => {
             const div = document.createElement("div");
             div.className = "torneio";
-            const dataTorneio = parseTorneioData(torneio.data);
-            div.textContent = `${torneio.nome} (${dataTorneio.toLocaleDateString()} ${dataTorneio.toLocaleTimeString()})`;
+            div.textContent = `${torneio.nome} (${torneio.data.toLocaleDateString()} ${torneio.data.toLocaleTimeString()})`;
             torneiosContainer.appendChild(div);
         });
 
@@ -341,10 +333,7 @@ async function carregarGerenciarTorneios() {
         torneios.forEach(torneio => {
             const div = document.createElement("div");
             div.className = "torneio";
-            const dataTorneio = parseTorneioData(torneio.data);
-            console.log(torneio.data);
-            div.textContent = `${torneio.nome} (${dataTorneio.toLocaleDateString()} ${dataTorneio.toLocaleTimeString()})`;
-            console.log(dataTorneio);
+            div.textContent = `${torneio.nome} (${torneio.data.toLocaleDateString()} ${torneio.data.toLocaleTimeString()})`;
 
             const manageButton = document.createElement("button");
             manageButton.textContent = "Gerenciar";
