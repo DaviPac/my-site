@@ -399,7 +399,11 @@ async function carregarGerenciarTorneios() {
             modal.innerHTML = `
                 <input id="nome" placeholder="Nome">
                 <input id="data" placeholder="Data dd/mm/yyyy hh:MM">
-                <input id="type" placeholder="Tipo (single ou double)">
+                <input id="hora" placeholder = "Hora hh:mm">
+                <select id="type">
+                    <option value="single">Single</option>
+                    <option value="double">Double</option>
+                </select>
                 <button id="add">Adicionar</button>
                 <button id="close">Fechar</button>
             `;
@@ -410,7 +414,7 @@ async function carregarGerenciarTorneios() {
 
             modal.querySelector("#add").onclick = async () => {
                 const nome = modal.querySelector("#nome").value;
-                const data = modal.querySelector("#data").value;
+                const data = modal.querySelector("#data").value + " " + modal.querySelector("#hora").value;
                 const type = modal.querySelector("#type").value;
                 if (!nome || !data || !type) {
                     alert("❌ Dados vazios");
@@ -468,7 +472,7 @@ async function carregarGerenciarTorneios() {
             modal.innerHTML = `
                 <input id="nome" value="${torneio.nome}">
                 <input id="data" value="${torneioData.toLocaleDateString()}">
-                <input id="hora" value="${torneioData.toLocaleTimeString()}">
+                <input id="hora" value="${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}">
                 <button id="save">Salvar</button>
                 <button id="close">Fechar</button>
                 <button id="delete">Excluir</button>
