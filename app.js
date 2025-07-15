@@ -292,7 +292,7 @@ async function carregarTorneios() {
             div.innerHTML = `
             <h2>${torneio.nome}</h2>
             <p>Data: ${torneioData.toLocaleDateString()}</p>
-            <p>Horário: ${torneioData.toLocaleTimeString()}</p>
+            <p>Horário: ${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
             `;
             torneiosContainer.appendChild(div);
         });
@@ -371,7 +371,8 @@ async function carregarGerenciarTorneios() {
             const div = document.createElement("div");
             div.className = "torneio";
             const torneioData = new Date(torneio.data);
-            div.textContent = `${torneio.nome} (${torneioData.toLocaleDateString()} ${torneioData.toLocaleTimeString()})`;
+            div.textContent = `${torneio.nome} (${torneioData.toLocaleDateString()} ${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`;
+
 
             const manageButton = document.createElement("button");
             manageButton.textContent = "Gerenciar";
@@ -410,7 +411,7 @@ async function carregarGerenciarTorneios() {
 
             modal.innerHTML = `
                 <input id="nome" placeholder="Nome">
-                <input id="data" placeholder="Data">
+                <input id="data" placeholder="Data dd/mm/yyyy hh:MM">
                 <input id="type" placeholder="Tipo (single ou double)">
                 <button id="add">Adicionar</button>
                 <button id="close">Fechar</button>
