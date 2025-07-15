@@ -1,0 +1,39 @@
+/* Container geral */
+.torneios {
+  display: flex;
+  flex-wrap: wrap;         /* Permite quebrar linha ao atingir o fim */
+  gap: 16px;               /* Espaço entre os cards */
+  padding: 16px;
+  justify-content: center; /* Centraliza as fileiras */
+  background-color: #f0f8ff; /* Azul bem claro */
+}
+
+/* Cada card de torneio */
+.torneio {
+  background-color: white;
+  border: 2px solid #007BFF;      /* Azul vibrante */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 16px;
+  width: 250px;                  /* Tamanho fixo para empilhamento previsível */
+  box-sizing: border-box;
+  transition: transform 0.2s;
+}
+
+.torneio:hover {
+  transform: scale(1.03);
+}
+
+/* Título */
+.torneio h2 {
+  font-size: 1.25rem;
+  color: #0056b3;              /* Azul mais escuro */
+  margin-bottom: 8px;
+}
+
+/* Parágrafos */
+.torneio p {
+  margin: 4px 0;
+  color: #333;
+  font-size: 0.95rem;
+}

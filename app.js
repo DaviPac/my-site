@@ -257,7 +257,11 @@ async function carregarTorneios() {
             const div = document.createElement("div");
             div.className = "torneio";
             const torneioData = new Date(torneio.data);
-            div.textContent = `${torneio.nome} (${torneioData.toLocaleDateString()} ${torneioData.toLocaleTimeString()})`;
+            div.innerHTML = `
+            <h2>${torneio.nome}</h2>
+            <p>Data: ${torneioData.toLocaleDateString()}</p>
+            <p>Horário: ${torneioData.toLocaleTimeString()}}</p>
+            `;
             torneiosContainer.appendChild(div);
         });
 
@@ -352,8 +356,16 @@ async function carregarGerenciarTorneios() {
     }
     async function openAddTorneioPopup() {
         try {
-
+            const oldModal = document.getElementById("AddTorneioModal");
+            if (oldModal) {
+                oldModal.remove();
+            }
+            const torneioModal = document.getElementById("torneioModal");
+            if (torneioModal) {
+                torneioModal.remove();
+            }
             const modal = document.createElement("div");
+            modal.id = "AddTorneioModal";
             modal.style.position = "fixed";
             modal.style.top = "50%";
             modal.style.left = "50%";
@@ -412,8 +424,17 @@ async function carregarGerenciarTorneios() {
     async function openTorneioPopup(torneio) {
 
         try {
+            const oldModal = document.getElementById("torneioModal");
+            if (oldModal) {
+                oldModal.remove();
+            }
+            const addTorneioModal = document.getElementById("AddTorneioModal");
+            if (addTorneioModal) {
+                addTorneioModal.remove();
+            }
             const torneioData = new Date(torneio.data);
             const modal = document.createElement("div");
+            modal.id = "torneioModal";
             modal.style.position = "fixed";
             modal.style.top = "50%";
             modal.style.left = "50%";
