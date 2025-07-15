@@ -15,14 +15,13 @@ const CACHE = new Map();
  * @param {() => Promise<any>} fetchFn – Função que devolve a Promise original.
  */
 
-async function swr(key, ttl, fetchFn, onUpdate) { // stale while revalidate
+async function swr(key, fetchFn, onUpdate) { // stale while revalidate
   const cache = sessionStorage.getItem(key);
   let parsed = null;
   if (cache) {
     try {
       parsed = JSON.parse(cache);
       onUpdate(parsed.data); // 1. mostra dado antigo imediatamente
-      if (Date.now() - parsed.timestamp < ttl) return;
     } catch (e) {
       parsed = null;
     }
@@ -47,7 +46,6 @@ async function carregarUsuarios() {
 
     swr(
         "usuarios",
-        60_000,
         async () => {
             const response = await fetch("https://testesitebackend.fly.dev/users", {
                 headers: {
@@ -127,7 +125,6 @@ async function carregarUsuarios() {
             if (res.ok) {
                 alert("✅ Usuário promovido a Admin");
                 modal.remove();
-                sessionStorage.removeItem("usuarios");
                 location.reload();
             } else {
                 alert("❌ Erro ao promover");
@@ -142,7 +139,6 @@ async function carregarUsuarios() {
             if (res.ok) {
                 alert("🔄 Usuário rebaixado");
                 modal.remove();
-                sessionStorage.removeItem("usuarios");
                 location.reload();
             } else {
                 alert("❌ Erro ao rebaixar");
@@ -159,7 +155,6 @@ async function carregarUsuarios() {
                 if (res.ok) {
                     alert("🗑️ Usuário excluído");
                     modal.remove();
-                    sessionStorage.removeItem("usuarios");
                     location.reload();
                 } else {
                     alert("❌ Erro ao excluir");
@@ -181,7 +176,6 @@ async function carregarUsuarios() {
                 if (res.ok) {
                     alert("🔄 Nome mudado");
                     modal.remove();
-                    sessionStorage.removeItem("usuarios");
                     location.reload();
                 } else {
                     alert("❌ Erro ao mudar nome");
@@ -203,7 +197,6 @@ async function carregarUsuarios() {
                 if (res.ok) {
                     alert("🔄 Senha mudada");
                     modal.remove();
-                    sessionStorage.removeItem("usuarios");
                     location.reload();
                 } else {
                     alert("❌ Erro ao mudar senha");
@@ -226,7 +219,6 @@ async function carregarUsuarios() {
                 if (res.ok) {
                     alert("🔄 Pontuação mudada");
                     modal.remove();
-                    sessionStorage.removeItem("ranking");
                     location.reload();
                 } else {
                     alert("❌ Erro ao mudar pontuação");
@@ -244,7 +236,6 @@ async function carregarRanking() {
     }
     swr(
         "ranking",
-        60_000,
         async () => {
             const response = await fetch("https://testesitebackend.fly.dev/ranking", {
                 headers: {
@@ -273,34 +264,32 @@ async function carregarTorneios() {
         window.location.href = "login.html";
         return;
     }
-    try {
-        const response = await fetch("https://testesitebackend.fly.dev/torneios", {
-            headers: {
-                "Authorization": "Bearer " + token
-            }
-        });
-
-        if (!response.ok) throw new Error("Não autorizado");
-
-        const torneios = await response.json();
-        const torneiosContainer = document.querySelector(".torneios");
-        torneiosContainer.innerHTML = ""; // limpa conteúdo anterior
-        torneios.forEach(torneio => {
-            const div = document.createElement("div");
-            div.className = "torneio";
-            const torneioData = new Date(torneio.data);
-            div.innerHTML = `
-            <h2>${torneio.nome}</h2>
-            <p>Data: ${torneioData.toLocaleDateString()}</p>
-            <p>Horário: ${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-            `;
-            torneiosContainer.appendChild(div);
-        });
-
-    } catch (err) {
-        alert("❌ Falha ao carregar torneios.");
-        console.error(err);
-    }
+    swr(
+        "torneios",
+        async () => {
+            const response = await fetch("https://testesitebackend.fly.dev/torneios", {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            });
+            if (!response.ok) throw new Error("Não autorizado");
+            return response.json();
+        },
+        (torneios) => {
+            const torneiosContainer = document.querySelector(".torneios");
+            torneiosContainer.innerHTML = ""; // limpa conteúdo anterior
+            torneios.forEach(torneio => {
+                const div = document.createElement("div");
+                div.className = "torneio";
+                div.innerHTML = `
+                <h2>${torneio.nome}</h2>
+                <p>Data: ${torneioData.toLocaleDateString()}</p>
+                <p>Horário: ${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                `;
+                torneiosContainer.appendChild(div);
+            });
+        }
+    );
 }
 
 async function carregarUsuario() {
@@ -346,47 +335,43 @@ async function carregarGerenciarTorneios() {
         return;
     }
 
-    try {
-        const response = await fetch("https://testesitebackend.fly.dev/torneios", {
-            headers: {
-                "Authorization": "Bearer " + token
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error("Não autorizado");
+    swr(
+        "gerTorneios",
+        async () => {
+            const response = await fetch("https://testesitebackend.fly.dev/torneios", {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            });
+            if (!response.ok) throw new Error("Não autorizado");
+            return response.json();
+        },
+        (torneios) => {
+            const torneiosContainer = document.querySelector(".gerTorneios");
+            torneiosContainer.innerHTML = ""; // limpa conteúdo anterior
+            torneios.forEach(torneio => {
+                const div = document.createElement("div");
+                div.className = "torneio";
+                const addTorneioButton = document.createElement("button");
+                addTorneioButton.textContent = "Adicionar Torneio";
+                addTorneioButton.style.marginBottom = "10px";
+                addTorneioButton.addEventListener("click", () => openAddTorneioPopup());
+                torneiosContainer.appendChild(addTorneioButton);
+                div.innerHTML = `
+                    <h2>${torneio.nome}</h2>
+                    <p>Data: ${torneioData.toLocaleDateString()}</p>
+                    <p>Horário: ${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                    `;
+                const manageButton = document.createElement("button");
+                manageButton.textContent = "Gerenciar";
+                manageButton.style.marginLeft = "10px";
+                manageButton.addEventListener("click", () => openGerTorneioPopup(torneio));
+                div.appendChild(manageButton);
+                torneiosContainer.appendChild(div);
+            });
         }
+    );
 
-        const torneios = await response.json();
-
-        const torneiosContainer = document.querySelector(".gerTorneios");
-        torneiosContainer.innerHTML = ""; // limpa conteúdo anterior
-        const addTorneioButton = document.createElement("button");
-        addTorneioButton.textContent = "Adicionar Torneio";
-        addTorneioButton.style.marginBottom = "10px";
-        addTorneioButton.addEventListener("click", () => openAddTorneioPopup());
-        torneiosContainer.appendChild(addTorneioButton);
-
-        torneios.forEach(torneio => {
-            const div = document.createElement("div");
-            div.className = "torneio";
-            const torneioData = new Date(torneio.data);
-            div.textContent = `${torneio.nome} (${torneioData.toLocaleDateString()} ${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`;
-
-
-            const manageButton = document.createElement("button");
-            manageButton.textContent = "Gerenciar";
-            manageButton.style.marginLeft = "10px";
-            manageButton.addEventListener("click", () => openTorneioPopup(torneio));
-            div.appendChild(manageButton);
-            torneiosContainer.appendChild(div);
-        });
-    } catch (error) {
-        alert("❌ Você não tem permissão ou ocorreu um erro.");
-        console.error(error);
-        localStorage.removeItem("token");
-        window.location.href = "login.html";
-    }
     async function openAddTorneioPopup() {
         try {
             const oldModal = document.getElementById("AddTorneioModal");
@@ -454,7 +439,7 @@ async function carregarGerenciarTorneios() {
         }
     }
 
-    async function openTorneioPopup(torneio) {
+    async function openGerTorneioPopup(torneio) {
 
         try {
             const oldModal = document.getElementById("torneioModal");
