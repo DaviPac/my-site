@@ -127,6 +127,7 @@ async function carregarUsuarios() {
             if (res.ok) {
                 alert("✅ Usuário promovido a Admin");
                 modal.remove();
+                sessionStorage.removeItem("usuarios");
                 location.reload();
             } else {
                 alert("❌ Erro ao promover");
@@ -141,6 +142,7 @@ async function carregarUsuarios() {
             if (res.ok) {
                 alert("🔄 Usuário rebaixado");
                 modal.remove();
+                sessionStorage.removeItem("usuarios");
                 location.reload();
             } else {
                 alert("❌ Erro ao rebaixar");
@@ -157,6 +159,7 @@ async function carregarUsuarios() {
                 if (res.ok) {
                     alert("🗑️ Usuário excluído");
                     modal.remove();
+                    sessionStorage.removeItem("usuarios");
                     location.reload();
                 } else {
                     alert("❌ Erro ao excluir");
@@ -178,6 +181,7 @@ async function carregarUsuarios() {
                 if (res.ok) {
                     alert("🔄 Nome mudado");
                     modal.remove();
+                    sessionStorage.removeItem("usuarios");
                     location.reload();
                 } else {
                     alert("❌ Erro ao mudar nome");
@@ -199,6 +203,7 @@ async function carregarUsuarios() {
                 if (res.ok) {
                     alert("🔄 Senha mudada");
                     modal.remove();
+                    sessionStorage.removeItem("usuarios");
                     location.reload();
                 } else {
                     alert("❌ Erro ao mudar senha");
@@ -221,6 +226,7 @@ async function carregarUsuarios() {
                 if (res.ok) {
                     alert("🔄 Pontuação mudada");
                     modal.remove();
+                    sessionStorage.removeItem("ranking");
                     location.reload();
                 } else {
                     alert("❌ Erro ao mudar pontuação");
