@@ -465,8 +465,8 @@ async function carregarGerenciarTorneios() {
 
             modal.innerHTML = `
                 <input id="nome" value="${torneio.nome}">
-                <input id="data" value="${torneioData.toLocaleDateString()} ${torneioData.toLocaleTimeString()}">
-
+                <input id="data" value="${torneioData.toLocaleDateString()}">
+                <input id="hora" value="${torneioData.toLocaleTimeString()}">
                 <button id="save">Salvar</button>
                 <button id="close">Fechar</button>
                 <button id="delete">Excluir</button>
@@ -496,10 +496,9 @@ async function carregarGerenciarTorneios() {
                 }
             };
 
-
             modal.querySelector("#save").onclick = async () => {
                 const nome = modal.querySelector("#nome").value;
-                const data = modal.querySelector("#data").value;
+                const data = modal.querySelector("#data").value + " " + modal.querySelector("#hora").value;
                 const torneioId = torneio.id;
                 if (!nome || !data) {
                     alert("❌ Dados vazios");
