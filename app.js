@@ -350,15 +350,15 @@ async function carregarGerenciarTorneios() {
         (torneios) => {
             const torneiosContainer = document.querySelector(".gerTorneios");
             torneiosContainer.innerHTML = ""; // limpa conteúdo anterior
+            const addTorneioButton = document.createElement("button");
+            addTorneioButton.textContent = "Adicionar Torneio";
+            addTorneioButton.style.marginBottom = "10px";
+            addTorneioButton.addEventListener("click", () => openAddTorneioPopup());
+            torneiosContainer.appendChild(addTorneioButton);
             torneios.forEach(torneio => {
                 const div = document.createElement("div");
                 div.className = "torneio";
                 const torneioData = new Date(torneio.data);
-                const addTorneioButton = document.createElement("button");
-                addTorneioButton.textContent = "Adicionar Torneio";
-                addTorneioButton.style.marginBottom = "10px";
-                addTorneioButton.addEventListener("click", () => openAddTorneioPopup());
-                torneiosContainer.appendChild(addTorneioButton);
                 div.innerHTML = `
                     <h2>${torneio.nome}</h2>
                     <p>Data: ${torneioData.toLocaleDateString()}</p>
