@@ -292,7 +292,7 @@ async function carregarTorneios() {
             div.innerHTML = `
             <h2>${torneio.nome}</h2>
             <p>Data: ${torneioData.toLocaleDateString()}</p>
-            <p>Horário: ${torneioData.toLocaleTimeString()}}</p>
+            <p>Horário: ${torneioData.toLocaleTimeString()}</p>
             `;
             torneiosContainer.appendChild(div);
         });
