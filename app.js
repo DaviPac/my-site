@@ -304,6 +304,7 @@ async function carregarTorneios() {
                 `;
                 const registrarButton = document.createElement("button");
                 registrarButton.textContent = "Registrar";
+                div.appendChild(registrarButton);
                 if (torneio.type === "single") {
                     registrarButton.onclick = async () => {
                         const resp = await fetch("https://testesitebackend.fly.dev/registrar-torneio", {
