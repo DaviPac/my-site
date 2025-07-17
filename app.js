@@ -13,7 +13,7 @@ function parseJwt(token) {
   }
 }
 
-const nomeDeUsuario = parseJwt(token).name;
+const nomeDeUsuario = parseJwt(token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
 
 const repoName = window.location.hostname.includes('github.io')
     ? '/' + window.location.pathname.split('/')[1]
