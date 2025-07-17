@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chaveamento do Torneio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- jQuery Bracket -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-bracket@0.11.1/dist/jquery.bracket.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jquery-bracket@0.11.1/dist/jquery.bracket.min.js"></script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      padding: 30px;
+    }
+    #torneio {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.15);
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Chaveamento do Torneio</h1>
+  <div id="torneio">Carregando...</div>
+
+  <script>
+    const torneioId = 1; // Altere conforme necessário
+
+    fetch("https://seuservidor.fly.dev/chaveamento", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ torneioId })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("Erro HTTP " + res.status);
+      return res.json();
+    })
+    .then(data => {
+      $("#torneio").empty(); // limpa "Carregando..."
+      $("#torneio").bracket({
+        init: data
+      });
+    })
+    .catch(err => {
+      console.error("Erro ao carregar:", err);
+      document.getElementById("torneio").innerText = "Erro ao carregar chaveamento.";
+    });
+  </script>
+
+</body>
+</html>

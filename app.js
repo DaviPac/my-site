@@ -1,6 +1,20 @@
 const token = localStorage.getItem('token');
 if (!token) window.location.href = '/my-site/login';
 
+function parseJwt(token) {
+  if (!token) return null;
+  try {
+    const base64Payload = token.split('.')[1];
+    const payload = atob(base64Payload); // decodifica de base64
+    return JSON.parse(payload); // converte string JSON para objeto
+  } catch (e) {
+    console.error("Token inválido", e);
+    return null;
+  }
+}
+
+const nomeDeUsuario = parseJwt(token).name;
+
 const repoName = window.location.hostname.includes('github.io')
     ? '/' + window.location.pathname.split('/')[1]
     : '';
@@ -286,7 +300,31 @@ async function carregarTorneios() {
                 <h2>${torneio.nome}</h2>
                 <p>Data: ${torneioData.toLocaleDateString()}</p>
                 <p>Horário: ${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                <p>ID: ${torneio.id}</p>
                 `;
+                const registrarButton = document.createElement("button");
+                registrarButton.textContent = "Registrar";
+                if (torneio.type === "single") {
+                    registrarButton.onclick = async () => {
+                        const resp = await fetch("https://testesitebackend.fly.dev/registrar-torneio", {
+                            method: "POST",
+                            headers: {
+                                "Authorization": "Bearer " + token,
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                torneioId: torneio.id,
+                                Nome: nomeDeUsuario,
+                                Usernames: [nomeDeUsuario]
+                            })
+                        });
+                        if (resp.ok) {
+                            alert("✅ Registro realizado");
+                        } else {
+                            alert("❌ Erro ao registrar");
+                        }
+                    }
+                }
                 torneiosContainer.appendChild(div);
             });
         }
