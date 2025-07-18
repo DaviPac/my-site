@@ -580,8 +580,7 @@ async function carregarGerenciarTorneios() {
                     const res = await fetch(`https://testesitebackend.fly.dev/iniciar-torneio?torneioId=${torneioId}`, {
                         method: "POST",
                         headers: { 
-                            "Authorization": "Bearer " + token,
-                            "Content-Type": "application/json"
+                            "Authorization": "Bearer " + token
                          }
                     });
                     if (res.ok) {
