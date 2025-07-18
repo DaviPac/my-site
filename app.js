@@ -518,6 +518,7 @@ async function carregarGerenciarTorneios() {
                 <input id="data" value="${torneioData.toLocaleDateString()}">
                 <input id="hora" value="${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}">
                 <button id="save">Salvar</button>
+                <button id="iniciar">Iniciar</button>
                 <button id="close">Fechar</button>
                 <button id="delete">Excluir</button>
             `;
@@ -569,6 +570,26 @@ async function carregarGerenciarTorneios() {
                         location.reload();
                     } else {
                         alert("❌ Erro ao atualizar torneio");
+                    }
+                }
+            };
+
+            modal.querySelector("#iniciar").onclick = async () => {
+                const torneioId = torneio.id;
+                if (confirm("Iniciar torneio?")) {
+                    const res = await fetch(`https://testesitebackend.fly.dev/iniciar-torneio?torneioId=${torneioId}`, {
+                        method: "POST",
+                        headers: { 
+                            "Authorization": "Bearer " + token,
+                            "Content-Type": "application/json"
+                         }
+                    });
+                    if (res.ok) {
+                        alert("✅ Torneio iniciado");
+                        modal.remove();
+                        location.reload();
+                    } else {
+                        alert("❌ Erro ao iniciar torneio");
                     }
                 }
             };
