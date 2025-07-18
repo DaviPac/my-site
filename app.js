@@ -306,6 +306,11 @@ async function carregarTorneios() {
                 registrarButton.textContent = "Registrar";
                 div.appendChild(registrarButton);
                 if (torneio.type === "single") {
+                    console.log(JSON.stringify({
+                                TorneioId: torneio.id,
+                                Nome: nomeDeUsuario,
+                                Usernames: [nomeDeUsuario]
+                            }));
                     registrarButton.onclick = async () => {
                         const resp = await fetch("https://testesitebackend.fly.dev/registrar-torneio", {
                             method: "POST",
