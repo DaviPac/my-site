@@ -314,7 +314,7 @@ async function carregarTorneios() {
                                 "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
-                                torneioId: torneio.id,
+                                TorneioId: torneio.id,
                                 Nome: nomeDeUsuario,
                                 Usernames: [nomeDeUsuario]
                             })
