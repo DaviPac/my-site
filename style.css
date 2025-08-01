@@ -299,21 +299,23 @@ input::placeholder {
 /* Páginas de Login e Registro */
 body:has(#loginForm), body:has(#registerForm) {
     display: grid;
-    place-items: center; /* Centraliza na horizontal e vertical de uma só vez */
+    place-items: center;
     min-height: 100vh;
-    padding: 1rem;       /* Usar um padding menor ajuda em telas pequenas */
+    padding: 1rem;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Impede scroll horizontal e vertical desnecessário */
+    width: 100vw; /* Garante que o body ocupe exatamente a largura da viewport */
+    max-width: 100vw; /* Impede que ultrapasse a largura da tela */
 }
 
-/* Efeito de fundo animado */
+/* Efeito de fundo animado - CORRIGIDO */
 body:has(#loginForm)::before, body:has(#registerForm)::before {
     content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    position: fixed; /* Mudou de absolute para fixed */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Exatamente a largura da viewport */
+    height: 100vh; /* Exatamente a altura da viewport */
     background: linear-gradient(45deg, 
         rgba(102, 126, 234, 0.1) 0%, 
         rgba(118, 75, 162, 0.1) 25%, 
@@ -322,11 +324,13 @@ body:has(#loginForm)::before, body:has(#registerForm)::before {
         rgba(102, 126, 234, 0.1) 100%);
     animation: rotate 20s linear infinite;
     z-index: -1;
+    overflow: hidden;
+    pointer-events: none; /* Impede interação com o pseudo-elemento */
 }
 
 @keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1.1); }
 }
 
 /* Container principal do formulário */
@@ -345,6 +349,7 @@ body:has(#loginForm)::before, body:has(#registerForm)::before {
     border: 1px solid rgba(255, 255, 255, 0.3);
     margin: 0 auto;
     display: block;
+    z-index: 1; /* Garante que fique acima do background */
 }
 
 .auth-container::before {
@@ -450,7 +455,7 @@ body:has(#loginForm) button[type="submit"], body:has(#registerForm) button[type=
 
 body:has(#loginForm) button[type="submit"]::before, body:has(#registerForm) button[type="submit"]::before {
     content: '';
-    position: absolutely;
+    position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
@@ -522,61 +527,23 @@ body:has(#registerForm) h2::before {
     margin-bottom: 1rem;
 }
 
-/* Responsividade para auth */
+/* Responsividade para auth - MELHORADA */
 @media (max-width: 768px) {
     body:has(#loginForm), body:has(#registerForm) {
-        padding: 1.5rem;
+        padding: 1rem;
+        min-height: 100vh;
+        max-height: 100vh;
         justify-content: center;
         align-items: center;
-    }
-    
-    .auth-container {
-        padding: 3rem 2.5rem;
-        margin: 0 auto;
-        width: 100%;
-        max-width: 420px;
-        min-width: 320px;
-        border-radius: 25px;
-    }
-    
-    body:has(#loginForm) h2, body:has(#registerForm) h2 {
-        font-size: 2rem;
-        margin-bottom: 2.5rem;
-    }
-    
-    body:has(#loginForm) h2::before, body:has(#registerForm) h2::before {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
-    
-    body:has(#loginForm) input, body:has(#registerForm) input {
-        padding: 1.3rem 1.5rem;
-        font-size: 16px; /* Previne zoom no iOS */
-        margin-bottom: 1.5rem;
-        border-radius: 15px;
-    }
-    
-    body:has(#loginForm) button[type="submit"], body:has(#registerForm) button[type="submit"] {
-        padding: 1.3rem;
-        font-size: 1.1rem;
-        margin: 1.5rem 0;
-        border-radius: 15px;
-    }
-    
-    body:has(#loginForm) a, body:has(#registerForm) a {
-        margin-top: 2rem;
-        padding: 1rem;
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    body:has(#loginForm), body:has(#registerForm) {
-        padding: 1rem;
+        overflow: hidden; /* Mantém o overflow escondido */
     }
     
     .auth-container {
         padding: 2.5rem 2rem;
+        margin: 0;
+        width: calc(100% - 2rem); /* Considera o padding do body */
+        max-width: 400px;
+        min-width: unset;
         border-radius: 20px;
     }
     
@@ -587,11 +554,12 @@ body:has(#registerForm) h2::before {
     
     body:has(#loginForm) h2::before, body:has(#registerForm) h2::before {
         font-size: 2.5rem;
-        margin-bottom: 0.8rem;
+        margin-bottom: 1rem;
     }
     
     body:has(#loginForm) input, body:has(#registerForm) input {
         padding: 1.2rem;
+        font-size: 16px; /* Previne zoom no iOS */
         margin-bottom: 1.3rem;
         border-radius: 12px;
     }
@@ -610,6 +578,24 @@ body:has(#registerForm) h2::before {
     }
 }
 
+@media (max-width: 480px) {
+    body:has(#loginForm), body:has(#registerForm) {
+        padding: 0.8rem;
+    }
+    
+    .auth-container {
+        padding: 2rem 1.5rem;
+        width: calc(100% - 1.6rem);
+        max-width: 350px;
+        border-radius: 18px;
+    }
+    
+    body:has(#loginForm) h2, body:has(#registerForm) h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.8rem;
+    }
+}
+
 /* Para telas muito pequenas */
 @media (max-width: 360px) {
     body:has(#loginForm), body:has(#registerForm) {
@@ -617,8 +603,20 @@ body:has(#registerForm) h2::before {
     }
     
     .auth-container {
-        padding: 2rem 1.5rem;
-        border-radius: 18px;
+        padding: 1.8rem 1.2rem;
+        width: calc(100% - 1rem);
+        max-width: 320px;
+        border-radius: 16px;
+    }
+    
+    body:has(#loginForm) h2, body:has(#registerForm) h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    body:has(#loginForm) h2::before, body:has(#registerForm) h2::before {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
     }
 }
 
@@ -758,4 +756,16 @@ html {
 ::selection {
     background: rgba(102, 126, 234, 0.3);
     color: #2d3748;
+}
+
+/* Adiciona controle específico para html também */
+html {
+    overflow-x: hidden; /* Impede scroll horizontal em qualquer situação */
+    width: 100%;
+    max-width: 100vw;
+}
+
+/* Garante que elementos não ultrapassem os limites da tela */
+*, *::before, *::after {
+    max-width: 100vw;
 }
