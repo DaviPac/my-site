@@ -578,8 +578,6 @@ body:has(#registerForm) h2::before {
     
     .auth-container {
         padding: 2.5rem 2rem;
-        width: 100%;
-        max-width: 100%;
         border-radius: 20px;
     }
     
