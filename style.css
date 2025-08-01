@@ -371,6 +371,7 @@ body:has(#loginForm) h2, body:has(#registerForm) h2 {
     font-size: 2.2rem;
     font-weight: 700;
     background: linear-gradient(135deg, #667eea, #764ba2);
+    background-repeat: no-repeat;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
