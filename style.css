@@ -299,53 +299,282 @@ input::placeholder {
 /* Páginas de Login e Registro */
 body:has(#loginForm), body:has(#registerForm) {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 2rem;
+    position: relative;
+    overflow: hidden;
 }
 
-body:has(#loginForm) > *, body:has(#registerForm) > * {
-    background: white;
+/* Efeito de fundo animado */
+body:has(#loginForm)::before, body:has(#registerForm)::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        rgba(102, 126, 234, 0.1) 0%, 
+        rgba(118, 75, 162, 0.1) 25%, 
+        rgba(102, 126, 234, 0.1) 50%, 
+        rgba(118, 75, 162, 0.1) 75%, 
+        rgba(102, 126, 234, 0.1) 100%);
+    animation: rotate 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Container principal do formulário */
+.auth-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
     padding: 3rem;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
+    border-radius: 25px;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+    max-width: 450px;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-#loginForm h2, #registerForm h2 {
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { background-position: 200% 0; }
+    50% { background-position: -200% 0; }
+}
+
+/* Títulos dos formulários */
+body:has(#loginForm) h2, body:has(#registerForm) h2 {
     text-align: center;
-    margin-bottom: 2rem;
-    color: #4a5568;
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
 }
 
-#loginForm label, #registerForm label {
+body:has(#loginForm) h2::after, body:has(#registerForm) h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+}
+
+/* Labels dos formulários */
+body:has(#loginForm) label, body:has(#registerForm) label {
     font-weight: 600;
-    color: #2d3748;
-    margin-bottom: 0.5rem;
+    color: #4a5568;
+    margin-bottom: 0.8rem;
     display: block;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
 }
 
-#loginForm a, #registerForm a {
+/* Inputs específicos para auth */
+body:has(#loginForm) input, body:has(#registerForm) input {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(247, 250, 252, 0.8);
+    backdrop-filter: blur(10px);
+    position: relative;
+}
+
+body:has(#loginForm) input:focus, body:has(#registerForm) input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 
+        0 0 0 4px rgba(102, 126, 234, 0.1),
+        0 4px 20px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+}
+
+body:has(#loginForm) input::placeholder, body:has(#registerForm) input::placeholder {
+    color: #a0aec0;
+    font-style: italic;
+}
+
+/* Botões dos formulários */
+body:has(#loginForm) button[type="submit"], body:has(#registerForm) button[type="submit"] {
+    width: 100%;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+body:has(#loginForm) button[type="submit"]::before, body:has(#registerForm) button[type="submit"]::before {
+    content: '';
+    position: absolutely;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+body:has(#loginForm) button[type="submit"]:hover, body:has(#registerForm) button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}
+
+body:has(#loginForm) button[type="submit"]:hover::before, body:has(#registerForm) button[type="submit"]:hover::before {
+    left: 100%;
+}
+
+body:has(#loginForm) button[type="submit"]:active, body:has(#registerForm) button[type="submit"]:active {
+    transform: translateY(-1px);
+}
+
+/* Links de navegação */
+body:has(#loginForm) a, body:has(#registerForm) a {
     color: #667eea;
     text-decoration: none;
     font-weight: 500;
     display: block;
     text-align: center;
-    margin-top: 1.5rem;
-}
-
-#loginForm a:hover, #registerForm a:hover {
-    text-decoration: underline;
-}
-
-#resultado {
-    margin-top: 1rem;
+    margin-top: 2rem;
     padding: 1rem;
-    border-radius: 8px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    background: rgba(102, 126, 234, 0.05);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+body:has(#loginForm) a:hover, body:has(#registerForm) a:hover {
+    color: #5a67d8;
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+/* Resultado/mensagens */
+body:has(#loginForm) #resultado, body:has(#registerForm) #resultado {
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    border-radius: 12px;
     font-weight: 500;
     text-align: center;
+    min-height: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Ícones decorativos */
+body:has(#loginForm) h2::before {
+    content: '🔐';
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+body:has(#registerForm) h2::before {
+    content: '👋';
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsividade para auth */
+@media (max-width: 768px) {
+    body:has(#loginForm), body:has(#registerForm) {
+        padding: 1rem;
+    }
+    
+    .auth-container {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+    
+    body:has(#loginForm) h2, body:has(#registerForm) h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+    
+    body:has(#loginForm) input, body:has(#registerForm) input {
+        padding: 1rem;
+        font-size: 16px; /* Previne zoom no iOS */
+    }
+    
+    body:has(#loginForm) button[type="submit"], body:has(#registerForm) button[type="submit"] {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Animação de entrada */
+.auth-container {
+    animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estados de erro e sucesso para resultado */
+.error-message {
+    background: linear-gradient(135deg, #fed7d7, #feb2b2);
+    border: 1px solid #fc8181;
+    color: #742a2a;
+}
+
+.success-message {
+    background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+    border: 1px solid #68d391;
+    color: #22543d;
 }
 
 /* Responsividade */

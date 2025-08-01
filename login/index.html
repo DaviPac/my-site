@@ -6,20 +6,22 @@
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <h2>Login</h2>
-  <form id="loginForm">
-    <label>Usuário:</label><br />
-    <input type="text" id="username" /><br /><br />
-    
-    <label>Senha:</label><br />
-    <input type="password" id="password" /><br /><br />
-    
-    <button type="submit">Entrar</button>
-  </form>
+  <div class="auth-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label>Usuário:</label>
+      <input type="text" id="username" placeholder="Digite seu usuário" />
+      
+      <label>Senha:</label>
+      <input type="password" id="password" placeholder="Digite sua senha" />
+      
+      <button type="submit">Entrar</button>
+    </form>
 
-  <p id="resultado"></p>
+    <p id="resultado"></p>
 
-  <a href="/my-site/register/">Ainda não é cadastrado? Registre-se</a>
+    <a href="/my-site/register/">Ainda não é cadastrado? Registre-se</a>
+  </div>
 
   <script src="login.js"></script>
 </body>
