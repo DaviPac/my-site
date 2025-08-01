@@ -298,12 +298,10 @@ input::placeholder {
 
 /* Páginas de Login e Registro */
 body:has(#loginForm), body:has(#registerForm) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    place-items: center; /* Centraliza na horizontal e vertical de uma só vez */
     min-height: 100vh;
-    padding: 2rem;
+    padding: 1rem;       /* Usar um padding menor ajuda em telas pequenas */
     position: relative;
     overflow: hidden;
 }
