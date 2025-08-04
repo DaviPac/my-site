@@ -775,7 +775,7 @@ html {
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 10;
     z-index: 101; /* Fica acima de outros elementos do header */
     
     /* Barras do "hambúrguer" */
