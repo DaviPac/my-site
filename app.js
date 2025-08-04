@@ -1,6 +1,18 @@
 const token = localStorage.getItem('token');
 if (!token) window.location.href = '/my-site/login';
 
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const header = document.querySelector('header');
+
+    if (menuToggle && header) {
+        menuToggle.addEventListener('click', () => {
+            // Adiciona ou remove a classe 'nav-open' no header
+            header.classList.toggle('nav-open');
+        });
+    }
+});
+
 function parseJwt(token) {
   if (!token) return null;
   try {

@@ -769,3 +769,85 @@ html {
 *, *::before, *::after {
     max-width: 100vw;
 }
+
+.menu-toggle {
+    display: none; /* Escondido em telas grandes */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101; /* Fica acima de outros elementos do header */
+    
+    /* Barras do "hambúrguer" */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.menu-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- Estilos para telas mobile --- */
+@media (max-width: 768px) {
+    /* Mostra o botão do menu */
+    .menu-toggle {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        right: 1.5rem;
+        transform: translateY(-50%);
+    }
+
+    /* Esconde a navegação principal */
+    nav {
+        display: none;
+        
+        /* Estilos quando o menu estiver aberto */
+        position: absolute;
+        top: 100%; /* Posiciona abaixo do header */
+        left: 0;
+        width: 100%;
+        background: rgba(45, 55, 72, 0.9); /* Fundo escuro semitransparente */
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
+        
+        /* Organiza os links verticalmente */
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+
+    /* Estilo para cada link no menu mobile */
+    nav a {
+        width: 100%;
+        text-align: center;
+        border-radius: 0;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    nav a:last-child {
+        border-bottom: none;
+    }
+    
+    /* Quando o menu estiver aberto, a navegação aparece */
+    header.nav-open nav {
+        display: flex;
+    }
+    
+    /* Animação do botão para virar um "X" */
+    header.nav-open .menu-toggle .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    header.nav-open .menu-toggle .bar:nth-child(2) {
+        opacity: 0;
+    }
+    header.nav-open .menu-toggle .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
