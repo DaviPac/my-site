@@ -799,7 +799,7 @@ html {
     .menu-toggle {
         display: flex;
         position: absolute;
-        top: 50%;
+        top: 100%;
         right: 1.5rem;
         transform: translateY(-50%);
     }
@@ -822,7 +822,7 @@ html {
         top: 100%; /* Posiciona abaixo do header */
         left: 0;
         width: 100%;
-        background: rgba(45, 55, 72, 0.9); /* Fundo escuro semitransparente */
+        /* background: rgba(45, 55, 72, 0.9); /* Fundo escuro semitransparente */
         backdrop-filter: blur(10px);
         padding: 1rem 0;
         
