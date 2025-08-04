@@ -785,7 +785,7 @@ html {
 }
 
 .menu-toggle .bar {
-    display: block;
+    display: none;
     width: 25px;
     height: 3px;
     background-color: white;
@@ -802,6 +802,15 @@ html {
         top: 50%;
         right: 1.5rem;
         transform: translateY(-50%);
+    }
+
+    .menu-toggle .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out;
     }
 
     /* Esconde a navegação principal */
