@@ -4,7 +4,7 @@ async function fetchWithAuth(endpoint, options = {}) {
     const token = localStorage.getItem('token');
     if (!token) {
         window.location.href = '/my-site/login'; // Redireciona se não houver token
-        throw new Error('Não autorizado');
+        throw new Error('Sem token: Não autorizado');
     }
 
     const defaultHeaders = {

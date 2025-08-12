@@ -11,7 +11,7 @@ export async function carregarUsuario() {
     try {
         const resp = await getPerfil();
 
-        if (!resp.ok) throw new Error("Não autorizado");
+        if (!resp.ok) throw new Error("getPerfil falhou");
 
         const user = await resp.json();
 
