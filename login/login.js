@@ -13,9 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     if (response.status === 401) {
         document.getElementById('resultado').textContent = '❌ Usuário ou senha incorretos.';
     } else if (response.ok) {
-        const raw = await response.text();
-        console.log(raw);
-        const data = JSON.parse(raw);
+        const data = await response.json();
         localStorage.setItem('token', data.token);
         window.location.href = '/my-site/';
     } else {
