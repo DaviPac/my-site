@@ -1,3 +1,8 @@
+const repoName = window.location.hostname.includes('github.io')
+    ? '/' + window.location.pathname.split('/')[1]
+    : '';
+
+
 export async function carregarUsuario() {
     try {
         const resp = await fetch('https://testesitebackend.fly.dev/perfil', {

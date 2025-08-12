@@ -3,6 +3,11 @@ import { carregarUsuarios } from "./pages/users.js";
 import { carregarTorneios } from "./pages/torneios.js";
 import { carregarGerenciarTorneios } from "./pages/gerTorneios.js";
 
+const repoName = window.location.hostname.includes('github.io')
+    ? '/' + window.location.pathname.split('/')[1]
+    : '';
+
+
 // Impede o comportamento padrão de recarregar a página ao clicar nos links
 export const route = (event) => {
     event = event || window.event;
