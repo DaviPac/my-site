@@ -30,6 +30,7 @@ async function fetchWithAuth(endpoint, options = {}) {
     return response.json();
 }
 
+export const getPerfil = () => fetchWithAuth('/perfil');
 export const getUsers = () => fetchWithAuth('/users');
 export const getRanking = () => fetchWithAuth('/ranking');
 export const getTournaments = () => fetchWithAuth('/torneios');

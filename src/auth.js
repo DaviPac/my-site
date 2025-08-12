@@ -1,3 +1,5 @@
+import { getPerfil } from "./api.js";
+
 const repoName = window.location.hostname.includes('github.io')
     ? '/' + window.location.pathname.split('/')[1]
     : '';
@@ -5,11 +7,7 @@ const repoName = window.location.hostname.includes('github.io')
 
 export async function carregarUsuario() {
     try {
-        const resp = await fetch('https://testesitebackend.fly.dev/perfil', {
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        });
+        const resp = await getPerfil();
 
         if (!resp.ok) throw new Error("Não autorizado");
 
