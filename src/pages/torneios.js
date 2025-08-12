@@ -1,14 +1,12 @@
 import { parseJwt, swr } from "../utils.js";
 
-const token = localStorage.getItem('token');
-const nomeDeUsuario = parseJwt(token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-
 export async function carregarTorneios() {
     const token = localStorage.getItem("token");
     if (!token) {
         window.location.href = "login.html";
         return;
     }
+    const nomeDeUsuario = parseJwt(token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
     swr(
         "torneios",
         async () => {
