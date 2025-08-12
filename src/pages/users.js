@@ -1,4 +1,4 @@
-import { swr } from "../utils";
+import { swr } from "../utils.js";
 
 export async function carregarUsuarios() {
     const token = localStorage.getItem("token");

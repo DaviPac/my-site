@@ -1,7 +1,7 @@
-import { carregarRanking } from "./pages/ranking";
-import { carregarUsuarios } from "./pages/users";
-import { carregarTorneios } from "./pages/torneios";
-import { carregarGerenciarTorneios } from "./pages/gerTorneios";
+import { carregarRanking } from "./pages/ranking.js";
+import { carregarUsuarios } from "./pages/users.js";
+import { carregarTorneios } from "./pages/torneios.js";
+import { carregarGerenciarTorneios } from "./pages/gerTorneios.js";
 
 // Impede o comportamento padrão de recarregar a página ao clicar nos links
 export const route = (event) => {

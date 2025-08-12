@@ -1,4 +1,4 @@
-import { swr } from "../utils";
+import { swr } from "../utils.js";
 
 export async function carregarRanking() {
     const token = localStorage.getItem("token");

@@ -1,4 +1,4 @@
-import { parseJwt, swr } from "../utils";
+import { parseJwt, swr } from "../utils.js";
 
 const token = localStorage.getItem('token');
 const nomeDeUsuario = parseJwt(token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];

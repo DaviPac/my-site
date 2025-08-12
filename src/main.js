@@ -1,5 +1,5 @@
-import { carregarUsuario } from "./auth";
-import { handleLocation, route } from "./router";
+import { carregarUsuario } from "./auth.js";
+import { handleLocation, route } from "./router.js";
 
 const token = localStorage.getItem('token');
 if (!token) window.location.href = '/my-site/login';
