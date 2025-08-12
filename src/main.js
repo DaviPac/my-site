@@ -2,7 +2,10 @@ import { carregarUsuario } from "./auth.js";
 import { handleLocation, route } from "./router.js";
 
 const token = localStorage.getItem('token');
-if (!token) window.location.href = '/my-site/login';
+if (!token) {
+    alert("SEM TOKEN!");
+    window.location.href = '/my-site/login';
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');

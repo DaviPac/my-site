@@ -30,7 +30,8 @@ export async function carregarUsuario() {
             nav.appendChild(link);
             return user;
         }
-    } catch {
+    } catch(error) {
+        alert(error)
         localStorage.removeItem('token');
         window.location.href = `${repoName}/login`;
         return null;
