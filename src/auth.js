@@ -1,13 +1,17 @@
-import { getPerfil } from "./api.js";
-
 const repoName = window.location.hostname.includes('github.io')
     ? '/' + window.location.pathname.split('/')[1]
     : '';
 
+const token = localStorage.getItem('token');
+
 
 export async function carregarUsuario() {
     try {
-        const resp = await getPerfil();
+        const resp = await fetch('https://testesitebackend.fly.dev/perfil', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
 
         if (!resp.ok) throw new Error("Não autorizado");
 
