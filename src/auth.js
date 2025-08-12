@@ -9,11 +9,7 @@ const token = localStorage.getItem('token');
 
 export async function carregarUsuario() {
     try {
-        const resp = await getPerfil();
-
-        if (!resp.ok) throw new Error("getPerfil falhou");
-
-        const user = await resp.json();
+        const user = await getPerfil();
 
         if (user.role === "Admin") {
             const nav = document.querySelector("nav");
