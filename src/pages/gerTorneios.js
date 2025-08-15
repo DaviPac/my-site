@@ -1,23 +1,12 @@
 import { swr } from "../utils.js";
+import { getTournaments } from "../api.js";
+import { getToken } from "../auth.js";
 
 export async function carregarGerenciarTorneios() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        window.location.href = "login.html";
-        return;
-    }
 
     swr(
         "gerTorneios",
-        async () => {
-            const response = await fetch("https://testesitebackend.fly.dev/torneios", {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            });
-            if (!response.ok) throw new Error("Não autorizado");
-            return response.json();
-        },
+        getTournaments,
         (torneios) => {
             const torneiosContainer = document.querySelector(".gerTorneios");
             torneiosContainer.innerHTML = ""; // limpa conteúdo anterior

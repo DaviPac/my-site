@@ -1,11 +1,24 @@
 import { getPerfil } from "./api.js";
+import { parseJwt } from "./utils.js";
 
 const repoName = window.location.hostname.includes('github.io')
     ? '/' + window.location.pathname.split('/')[1]
     : '';
 
-const token = localStorage.getItem('token');
+export function getToken() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        console.log("Sem token");
+        window.location.href = `${repoName}/login`;
+        return null;
+    }
+    return token;
+}
 
+export function getUsername() {
+    const token = getToken();
+    return parseJwt(token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+}
 
 export async function carregarUsuario() {
     try {

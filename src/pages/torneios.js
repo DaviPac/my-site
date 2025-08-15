@@ -1,66 +1,36 @@
-import { parseJwt, swr } from "../utils.js";
+import { swr } from "../utils.js";
+import { getUsername } from "../auth.js";
+import { getTournaments, registrarEmTorneio } from "../api.js";
 
 export async function carregarTorneios() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        window.location.href = "login.html";
-        return;
-    }
-    const nomeDeUsuario = parseJwt(token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+    const nomeDeUsuario = getUsername();
+    
     swr(
         "torneios",
-        async () => {
-            const response = await fetch("https://testesitebackend.fly.dev/torneios", {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            });
-            if (!response.ok) throw new Error("Não autorizado");
-            return response.json();
-        },
+        getTournaments,
         (torneios) => {
             const torneiosContainer = document.querySelector(".torneios");
-            torneiosContainer.innerHTML = ""; // limpa conteúdo anterior
             torneios.forEach(torneio => {
-                const div = document.createElement("div");
-                div.className = "torneio";
+                const template = document.getElementById("torneio-template");
+                clone = template.content.cloneNode(true);
+                clone.querySelector('.torneio-nome').textContent = torneio.nome;
                 const torneioData = new Date(torneio.data);
-                div.innerHTML = `
-                <h2>${torneio.nome}</h2>
-                <p>Data: ${torneioData.toLocaleDateString()}</p>
-                <p>Horário: ${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                <p>ID: ${torneio.id}</p>
-                `;
-                const registrarButton = document.createElement("button");
-                registrarButton.textContent = "Registrar";
-                div.appendChild(registrarButton);
+                clone.querySelector('.torneio-data').textContent = torneioData.toLocaleDateString();
+                clone.querySelector('.torneio-horario').textContent = torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                clone.querySelector('.torneio-id').textContent = torneio.id;
+                const registrarButton = clone.querySelector('.registrar-button');
                 if (torneio.type === "single") {
-                    console.log(JSON.stringify({
-                                TorneioId: torneio.id,
-                                Nome: nomeDeUsuario,
-                                Usernames: [nomeDeUsuario]
-                            }));
                     registrarButton.onclick = async () => {
-                        const resp = await fetch("https://testesitebackend.fly.dev/registrar-torneio", {
-                            method: "POST",
-                            headers: {
-                                "Authorization": "Bearer " + token,
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                TorneioId: torneio.id,
-                                Nome: nomeDeUsuario,
-                                Usernames: [nomeDeUsuario]
-                            })
-                        });
-                        if (resp.ok) {
+                        try {
+                            await registrarEmTorneio(torneio.id, nomeDeUsuario, [nomeDeUsuario]);
                             alert("✅ Registro realizado");
-                        } else {
+                        }
+                        catch {
                             alert("❌ Erro ao registrar");
                         }
                     }
                 }
-                torneiosContainer.appendChild(div);
+                torneiosContainer.appendChild(clone);
             });
         }
     );

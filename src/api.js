@@ -1,11 +1,9 @@
+import { getToken } from "./auth.js";
+
 const BASE_URL = 'https://testesitebackend.fly.dev';
 
 async function fetchWithAuth(endpoint, options = {}) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/my-site/login'; // Redireciona se não houver token
-        throw new Error('Sem token: Não autorizado');
-    }
+    const token = getToken();
 
     const defaultHeaders = {
         'Authorization': `Bearer ${token}`,
@@ -29,6 +27,15 @@ async function fetchWithAuth(endpoint, options = {}) {
 
     return response.json();
 }
+
+export const registrarEmTorneio = (torneioId, apelido, usernames) => fetchWithAuth('/registrar-torneio', {
+    method: 'POST',
+    body: JSON.stringify({
+        TorneioId: torneioId,
+        Nome: apelido,
+        Usernames: usernames
+    })
+});
 
 export const getPerfil = () => fetchWithAuth('/perfil');
 export const getUsers = () => fetchWithAuth('/users');
