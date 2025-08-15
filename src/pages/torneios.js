@@ -2,7 +2,7 @@ import { swr } from "../utils.js";
 import { getUsername } from "../auth.js";
 import { getTournaments, registrarEmTorneio } from "../api.js";
 
-export async function carregarTorneios() {
+export function carregarTorneios() {
     const nomeDeUsuario = getUsername();
     
     swr(
