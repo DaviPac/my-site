@@ -12,7 +12,7 @@ export async function carregarTorneios() {
             const torneiosContainer = document.querySelector(".torneios");
             torneios.forEach(torneio => {
                 const template = document.getElementById("torneio-template");
-                clone = template.content.cloneNode(true);
+                const clone = template.content.cloneNode(true);
                 clone.querySelector('.torneio-nome').textContent = torneio.nome;
                 const torneioData = new Date(torneio.data);
                 clone.querySelector('.torneio-data').textContent = torneioData.toLocaleDateString();
