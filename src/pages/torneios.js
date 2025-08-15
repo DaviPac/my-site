@@ -10,6 +10,7 @@ export async function carregarTorneios() {
         getTournaments,
         (torneios) => {
             const torneiosContainer = document.querySelector(".torneios");
+            torneiosContainer.innerHTML = "";
             torneios.forEach(torneio => {
                 const template = document.getElementById("torneio-template");
                 const clone = template.content.cloneNode(true);
