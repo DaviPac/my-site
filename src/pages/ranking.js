@@ -19,12 +19,12 @@ export async function carregarRanking() {
         },
         (ranking) => {
             const rankingContainer = document.querySelector(".ranking");
-            rankingContainer.innerHTML = ""; // limpa conteúdo anterior
+            rankingContainer.innerHTML = "";
+            const template = document.getElementById("ranking-template");
             ranking.forEach(rank => {
-                const div = document.createElement("div");
-                div.className = "rank";
-                div.textContent = `${rank.position} ${rank.username} (${rank.pontuacao})`;
-                rankingContainer.appendChild(div);
+                const clone = template.content.cloneNode(true);
+                clone.querySelector(".rank").textContent = `${rank.position} ${rank.username} (${rank.pontuacao})`;
+                rankingContainer.appendChild(clone);
             });
         }
     );

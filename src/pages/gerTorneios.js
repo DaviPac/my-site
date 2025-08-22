@@ -1,6 +1,5 @@
 import { swr } from "../utils.js";
 import { getTournaments } from "../api.js";
-import { getToken } from "../auth.js";
 
 export async function carregarGerenciarTorneios() {
 
@@ -9,27 +8,19 @@ export async function carregarGerenciarTorneios() {
         getTournaments,
         (torneios) => {
             const torneiosContainer = document.querySelector(".gerTorneios");
-            torneiosContainer.innerHTML = ""; // limpa conteúdo anterior
+            torneiosContainer.innerHTML = "";
             const addTorneioButton = document.createElement("button");
             addTorneioButton.textContent = "Adicionar Torneio";
-            addTorneioButton.style.marginBottom = "10px";
             addTorneioButton.addEventListener("click", () => openAddTorneioPopup());
             torneiosContainer.appendChild(addTorneioButton);
+            const template = document.getElementById("gerTorneios-template");
             torneios.forEach(torneio => {
-                const div = document.createElement("div");
-                div.className = "torneio";
-                const torneioData = new Date(torneio.data);
-                div.innerHTML = `
-                    <h2>${torneio.nome}</h2>
-                    <p>Data: ${torneioData.toLocaleDateString()}</p>
-                    <p>Horário: ${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                    `;
-                const manageButton = document.createElement("button");
-                manageButton.textContent = "Gerenciar";
-                manageButton.style.marginLeft = "10px";
-                manageButton.addEventListener("click", () => openGerTorneioPopup(torneio));
-                div.appendChild(manageButton);
-                torneiosContainer.appendChild(div);
+                const clone = template.contentEditable.cloneNode(true);
+                clone.querySelector('.torneio-nome').textContent = `${torneio.nome}`;
+                clone.querySelector('.torneio-data').textContent = `${torneioData.toLocaleDateString()}`
+                clone.querySelector('.torneio-horario').textContent = `${torneioData.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+                clone.querySelector('.gerenciar-button').addEventListener("click", () => openGerTorneioPopup(torneio));
+                torneiosContainer.appendChild(clone);
             });
         }
     );

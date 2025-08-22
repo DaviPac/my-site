@@ -24,15 +24,11 @@ export async function carregarUsuarios() {
             const usersContainer = document.querySelector(".users");
             usersContainer.innerHTML = ""; // limpa conteúdo anterior
             users.forEach(user => {
-                const div = document.createElement("div");
-                div.className = "user";
-                div.textContent = `👤 ${user.username} (${user.role})`;
-                const manageButton = document.createElement("button");
-                manageButton.textContent = "Gerenciar";
-                manageButton.style.marginLeft = "10px";
-                manageButton.addEventListener("click", () => openUserPopup(user.username));
-                div.appendChild(manageButton);
-                usersContainer.appendChild(div);
+                const template = document.getElementById("users-template");
+                const clone = template.content.cloneNode(true);
+                clone.querySelector(".user").textContent = `👤 ${user.username} (${user.role})`;
+                clone.querySelector(".botao-gerenciar").addEventListener("click", () => openUserPopup(user.username));
+                usersContainer.appendChild(clone);
             });
         }
     );
